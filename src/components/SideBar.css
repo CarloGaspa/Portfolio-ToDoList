@@ -1,12 +1,11 @@
 .sidebar {
-    width: 16rem; /* larghezza fissa, come w-64 */
+    width: 16rem; /* larghezza fissa */
     height: 100%; /* occupa tutta l'altezza disponibile */
-    background-color: rgb(37, 36, 35); /* colore desiderato */
-    color: #f3f4f6; /* testo grigio chiaro (Tailwind gray-100) */
-    padding: 1rem; /* come px-4, py-4 */
+    background-color: rgb(37, 36, 35);
+    color: #f3f4f6; /* testo grigio chiaro */
     box-sizing: border-box;
     overflow-y: auto; /* scroll se contenuto troppo lungo */
-    border-right: 1px solid #4B5563; /* simile a border-gray-600 */
+    border: 1px solid rgb(62,62,62);
 }
 
 .sidebar li:hover {

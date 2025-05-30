@@ -1,67 +1,11 @@
-/* Container principale che centra e organizza sidebar + main */
+/* Wrapper per tutto il contenuto sotto la TopBar */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  display: flex;       /* flex container orizzontale */
-  height: 100vh;       /* altezza piena viewport */
-  gap: 1rem;           /* spazio tra sidebar e main */
+  padding-top: calc(4rem - 1px);
+  display: flex;
+  gap: 1rem;
+  height: 100vh;
   box-sizing: border-box;
-}
-
-/* Sidebar a sinistra */
-.sidebar {
-  width: 16rem;                 /* larghezza fissa */
-  background-color: rgb(37, 36, 35);
-  color: #f3f4f6;
-  padding: 1rem;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
-
-/* Contenuto principale */
-.main-content {
-  flex: 1;                     /* occupa tutto lo spazio rimanente */
-  background-color: white;
-  padding: 1rem;
-  box-sizing: border-box;
-  overflow-y: auto;
-}
-
-/* Restanti stili preesistenti */
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }

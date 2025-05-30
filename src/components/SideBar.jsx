@@ -3,6 +3,7 @@ import './SideBar.css';
 function SideBar() {
   return (
     <aside className="sidebar">
+      <h2 className="text-2xl font-semibold mb-4">Navigazione</h2>
       <nav>
         {/* Inserisci qui le voci di menu */}
         <ul>

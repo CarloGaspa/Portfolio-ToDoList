@@ -1,17 +1,17 @@
 import './App.css'
 import TopBar from './components/TopBar.jsx'
 import SideBar from './components/SideBar.jsx'
-import MainContent from './components/MainContent.jsx'
+import Content from './components/Content.jsx'
 
 function App() {
   return (
-    <div className='app-wrapper'>
+    <>
       <TopBar />
-      <div className="app-container">
+      <div className="container">
         <SideBar />
-        <MainContent />
-      </div>
-    </div>
+        <Content />
+      </div> 
+    </>
   )
 }
 
