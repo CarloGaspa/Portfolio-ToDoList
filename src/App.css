@@ -1,9 +1,34 @@
+/* Container principale che centra e organizza sidebar + main */
 #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
+  display: flex;       /* flex container orizzontale */
+  height: 100vh;       /* altezza piena viewport */
+  gap: 1rem;           /* spazio tra sidebar e main */
+  box-sizing: border-box;
 }
+
+/* Sidebar a sinistra */
+.sidebar {
+  width: 16rem;                 /* larghezza fissa */
+  background-color: rgb(37, 36, 35);
+  color: #f3f4f6;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* Contenuto principale */
+.main-content {
+  flex: 1;                     /* occupa tutto lo spazio rimanente */
+  background-color: white;
+  padding: 1rem;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+/* Restanti stili preesistenti */
 
 .logo {
   height: 6em;
