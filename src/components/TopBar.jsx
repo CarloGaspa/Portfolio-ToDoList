@@ -1,11 +1,14 @@
-import './TopBar.css';
+import '../App.css';
 
-function TopBar() {
+function TopBar({onToggleSidebar}) {
   return (
     <header className="topbar">
+      <button className='menu-toggle' onClick={onToggleSidebar}>
+        ☰
+      </button>
       <div className="topbar-title">Todo List</div>
       <nav className="topbar-nav">
-        {/* Bottoni o link qui */}
+        {/* nav items */}
       </nav>
     </header>
   );

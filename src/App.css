@@ -1,11 +1,104 @@
-/* Wrapper per tutto il contenuto sotto la TopBar */
-#root {
+/* === Layout principale === */
+.container, #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  padding-top: calc(4rem - 1px);
   display: flex;
   gap: 1rem;
   height: 100vh;
   box-sizing: border-box;
+  padding: 2rem;
+  padding-top: calc(4rem - 1px);
+}
+
+/* === Main Content === */
+main {
+  margin-left: 0;
+  padding: 1rem;
+  border: 1px solid rgb(62, 62, 62);
+}
+
+/* === Sidebar === */
+.sidebar {
+  position: fixed;
+  left: 0;
+  width: 15rem;
+  height: 100%;
+  background-color: rgb(37, 36, 35);
+  color: #f3f4f6;
+  box-sizing: border-box;
+  overflow-y: auto;
+  border: 1px solid rgb(62, 62, 62);
+  transition: left 0.3s ease-in-out;
+  top: 4rem; /* per mobile */
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.sidebar li:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+/* === Topbar === */
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  background-color: rgb(25, 26, 25);
+  color: #d1d5db;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  border-bottom: 1px solid rgb(62, 62, 62);
+}
+
+.topbar-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.topbar-nav {
+  display: flex;
+  gap: 1rem;
+}
+
+/* === Responsive === */
+@media (max-width: 768px) {
+  .sidebar {
+    left: -100%;
+    height: calc(100% - 4rem);
+    width: 12rem;
+    z-index: 40;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+
+  .container {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .topbar-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
 }
