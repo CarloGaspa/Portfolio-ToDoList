@@ -7,17 +7,17 @@
   min-height: 100vh;
 }
 
-/* === Container principale === */
-.container-area {
+/* === Side bar + Content === */
+.main-area {
   display: flex;
   flex: 1;
-  margin-top: 4rem; /* spazio per topbar fixed */
+  margin-top: 4rem;
   width: 100%;
 }
 
 /* === Content === */
-.content {
-  margin-left: 15rem; /* spazio lasciato dalla sidebar fissa */
+.content-area {
+  margin-left: 15rem;
   flex: 1;
   padding: 1rem;
   overflow: auto;
