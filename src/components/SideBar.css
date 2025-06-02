@@ -1,0 +1,120 @@
+/* === Sidebar === */
+.sidebar {
+    position: fixed;
+    top: 4rem;
+    left: 0;
+    width: 15rem;
+    height: calc(100% - 4rem);  /* Altezza meno topbar */
+    background-color: rgb(37, 36, 35);
+    color: #f3f4f6;
+    box-sizing: border-box;
+    overflow-y: auto;
+    border: 1px solid rgb(62, 62, 62);
+    transition: left 0.3s ease-in-out;
+    z-index: 40;
+}
+
+.sidebar li {
+    padding: 13px 24px;
+    margin: 0;
+    cursor: pointer;
+    position: relative;
+    font-weight: 300;
+    transition: all 0.1s ease;
+    display: flex;
+    align-items: center;
+}
+
+/* creo un elemento decorativo prima di ogni voce */
+.sidebar li:before {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    height: 60%;
+    width: 4px;
+    background-color: #667eea;
+    transform: scaleY(0) translateY(-50%); /* Centra verticalmente */
+    transform-origin: center top;
+    transition: transform 0.2s ease, width 0.3s ease;
+}
+
+.sidebar li:hover {
+    background-color: rgba(102, 126, 234, 0.1);
+    color: white;
+    transform: translateX(5px);
+    cursor: pointer;
+}
+
+.sidebar li:hover:before {
+    transition: transform 0.2s ease, width 0.3s ease; /* Animazione solo su hover */
+    transform: scaleY(1) translateY(-50%);
+    background-color: var(--accent);
+}
+
+.sidebar li:active {
+    transform: translateX(5px) scale(0.98);
+}
+
+/* Icone moderne (puoi usare un'icon library come FontAwesome) */
+.sidebar li::after {
+    margin-left: auto;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    opacity: 0.7;
+}
+
+/* Colori diversi per ogni elemento (opzionale) */
+.sidebar li:nth-child(1) { --accent: #667eea; }
+.sidebar li:nth-child(2) { --accent: #f687b3; }
+.sidebar li:nth-child(3) { --accent: #f6ad55; }
+.sidebar li:nth-child(4) { --accent: #68d391; }
+.sidebar li:nth-child(5) { --accent: #4fd1c5; }
+.sidebar li:nth-child(6) { --accent: #63b3ed; }
+.sidebar li:nth-child(7) { --accent: #b794f4; }
+
+/* Icone */
+.icon {
+    margin-right: 15px;
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+.sidebar li:hover .icon {
+    transform: scale(1.1);
+    color: var(--accent); /* Usa il colore accent della tua sidebar */
+}
+
+/* Sidebar nascosta solo su mobile */
+@media (max-width: 768px) {
+  .sidebar {
+    left: -100%;
+  }
+
+  .sidebar.open {
+    left: 0;
+    width: 15rem;
+  }
+
+  .content {
+    margin-left: 0;
+    width: 100%; /* Su mobile occupa tutta la larghezza */
+  }
+
+  main {
+    margin-left: 0;
+  }
+
+  .topbar-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+}

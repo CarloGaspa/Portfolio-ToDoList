@@ -1,4 +1,5 @@
 import '../App.css';
+import './TopBar.css';
 
 function TopBar({onToggleSidebar}) {
   return (

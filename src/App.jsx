@@ -12,9 +12,11 @@ function App() {
   return (
     <>
       <TopBar onToggleSidebar={toggleSideBar} />
-      <div className="container">
+      <div className="container-area">
         <SideBar isOpen={sidebarOpen} />
-        <Content />
+        <div className="content">
+          <Content />
+        </div>
       </div>
     </>
   )
