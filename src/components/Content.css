@@ -1,8 +1,3 @@
-
-.content-container {
-  padding: 10px;
-}
-
 .content-header {
   display: flex;
   align-items: center;
@@ -18,4 +13,106 @@
 
 .content-title {
   font-size: 2.3rem;
+  margin: 0;
+}
+
+.content-container {
+  padding: 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.task-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+  gap: 8px;
+}
+
+.task-list li.completed .task-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.task-list li.important .task-text {
+  font-weight: bold;
+  color: #d35400;
+}
+
+.task-controls {
+  display: flex;
+  gap: 4px;
+}
+
+.toggle-complete,
+.toggle-important {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #007bff;
+  padding: 4px;
+  font-size: 1.2rem;
+}
+
+.toggle-complete:hover,
+.toggle-important:hover {
+  opacity: 0.8;
+}
+
+.toggle-important {
+  color: #d35400;
+}
+
+.task-text {
+  flex-grow: 1;
+  word-break: break-word;
+  padding-right: 10px;
+}
+
+.delete-task {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #dc3545;
+  padding: 4px;
+  margin-left: auto;
+}
+
+.delete-task:hover {
+  opacity: 0.8;
+}
+
+.no-tasks {
+  color: #888;
+  text-align: center;
+  margin-top: 20px;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content-container input[type="text"] {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: auto;
+}
+
+.content-container input[type="text"]:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
 }

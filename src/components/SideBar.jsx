@@ -1,6 +1,7 @@
 import '../App.css';
 import './SideBar.css';
 import {
+  FiInbox,
   FiUser,
   FiSun,
   FiAlertCircle,
