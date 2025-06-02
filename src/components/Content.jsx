@@ -12,7 +12,7 @@ export default function Content({
   onToggleImportant,
   currentList,
 }) {
-const [newTasktext, setNewTasktext] = useState('');
+  const [newTasktext, setNewTasktext] = useState('');
 
   const handleAddTask = () => {
     if (newTasktext.trim()){
@@ -26,8 +26,8 @@ const [newTasktext, setNewTasktext] = useState('');
   return (
     <div className="content-container">
       <div className="content-header">
-        <span className="content-icon">{activeContent.icon}</span>
-        <h1 className="content-title">{activeContent.name}</h1>
+        <span className="content-icon" style={{color: activeContent.color}}>{activeContent.icon}</span>
+        <h1 className="content-title" style={{color: activeContent.color}}>{activeContent.name}</h1>
       </div>
 
       <ul className='task-list'>
