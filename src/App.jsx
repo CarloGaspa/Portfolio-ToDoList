@@ -47,26 +47,26 @@ export default function App() {
   ]);
   const [activeContent, setActiveContent] = useState('inbox');
   const [tasks, setTasks] = useState([
-    { id: 'task-1', text: 'Complete project', completed: false, list: 'work', important: true, dueDate: '2023-12-15' },
-    { id: 'task-2', text: 'Meeting with team', completed: true, list: 'work', important: false, dueDate: '2026-12-10' },
-    { id: 'task-3', text: 'Clean the house', completed: false, list: 'home', important: false, dueDate: null },
-    { id: 'task-4', text: 'Buy milk', completed: false, list: 'groceries', important: true, dueDate: null },
-    { id: 'task-5', text: 'Pay bills', completed: false, list: 'home', important: false, dueDate: '2025-02-20' },
-    { id: 'task-6', text: 'Prepare presentation', completed: false, list: 'work', important: true, dueDate: '2026-11-30' },
-    { id: 'task-7', text: 'Go to gym', completed: true, list: 'personal', important: false, dueDate: '2026-12-05' },
-    { id: 'task-8', text: 'Read new book', completed: false, list: 'personal', important: false, dueDate: '2026-12-25' },
-    { id: 'task-9', text: 'Call mom', completed: false, list: 'personal', important: true, dueDate: null },
-    { id: 'task-10', text: 'Organize workspace', completed: true, list: 'work', important: false, dueDate: '2023-11-28' },
-    { id: 'task-11', text: 'Buy Christmas gifts', completed: false, list: 'shopping', important: true, dueDate: '2026-12-15' },
-    { id: 'task-12', text: 'Plan vacation', completed: false, list: 'personal', important: false, dueDate: '2024-06-01' },
-    { id: 'task-13', text: 'Fix leaking faucet', completed: false, list: 'home', important: true, dueDate: '2024-01-10' },
-    { id: 'task-14', text: 'Review documents', completed: true, list: 'work', important: false, dueDate: '2024-11-15' },
-    { id: 'task-15', text: 'Meditate for 10 mins', completed: false, list: 'personal', important: false, dueDate: null },
-    { id: 'task-16', text: 'Update resume', completed: false, list: 'work', important: true, dueDate: '2026-02-20' },
-    { id: 'task-17', text: 'Water plants', completed: true, list: 'home', important: false, dueDate: '2026-12-01' },
-    { id: 'task-18', text: 'Learn new recipe', completed: false, list: 'personal', important: false, dueDate: null },
-    { id: 'task-19', text: 'Backup computer', completed: false, list: 'work', important: true, dueDate: '2026-03-15' },
-    { id: 'task-20', text: 'Renew subscription', completed: false, list: 'personal', important: false, dueDate: '2026-04-10' }
+    { id: 'task-1', text: 'Complete project', completed: false, list: 'work', important: true, date: '2027-06-03', time: '15:00' },
+    { id: 'task-2', text: 'Meeting with team', completed: false, list: 'work', important: false, date: '2025-06-03', time: '' },
+    { id: 'task-3', text: 'Clean the house', completed: false, list: 'home', important: false, date: '', time: '' },
+    { id: 'task-4', text: 'Buy milk', completed: false, list: 'groceries', important: true, date: '2025-06-20', time: '09:00' },
+    { id: 'task-5', text: 'Pay bills', completed: false, list: 'home', important: false, date: '', time: '' },
+    { id: 'task-6', text: 'Prepare presentation', completed: false, list: 'work', important: true, date: '2025-06-04', time: '' },
+    { id: 'task-7', text: 'Go to gym', completed: true, list: 'personal', important: false, date: '2025-06-20', time: '18:00' },
+    { id: 'task-8', text: 'Read new book', completed: false, list: 'personal', important: false, date: '2025-06-20', time: '' },
+    { id: 'task-9', text: 'Call mom', completed: false, list: 'personal', important: true, date: '', time: '' },
+    { id: 'task-10', text: 'Organize workspace', completed: true, list: 'work', important: false, date: '2025-06-20', time: '10:00' },
+    { id: 'task-11', text: 'Buy Christmas gifts', completed: false, list: 'shopping', important: true, date: '2025-06-05', time: '16:30' },
+    { id: 'task-12', text: 'Plan vacation', completed: false, list: 'personal', important: false, date: '', time: '' },
+    { id: 'task-13', text: 'Fix leaking faucet', completed: false, list: 'home', important: true, date: '2025-06-20', time: '13:45' },
+    { id: 'task-14', text: 'Review documents', completed: true, list: 'work', important: false, date: '2024-11-15', time: '' },
+    { id: 'task-15', text: 'Meditate for 10 mins', completed: false, list: 'personal', important: false, date: '', time: '' },
+    { id: 'task-16', text: 'Update resume', completed: false, list: 'work', important: true, date: '2023-02-20', time: '09:00' },
+    { id: 'task-17', text: 'Water plants', completed: true, list: 'home', important: false, date: '2025-06-20', time: '08:00' },
+    { id: 'task-18', text: 'Learn new recipe', completed: false, list: 'personal', important: false, date: '2025-06-20', time: '' },
+    { id: 'task-19', text: 'Backup computer', completed: false, list: 'work', important: true, date: '2026-03-15', time: '17:00' },
+    { id: 'task-20', text: 'Renew subscription', completed: false, list: 'personal', important: false, date: '2023-04-10', time: '' }
   ]);
 
   /* Functions */
@@ -90,58 +90,56 @@ export default function App() {
 
   //Filtra i task in base alla pagina selezionata
   const getFilteredTasks = () => {
-    const today = new Date();
-    today.setHours(0,0,0,0);  // Imposta a inizio giornata per il confronto
+    const todayStart = new Date();
+    todayStart.setHours(0, 0, 0, 0);
+    
+    const tomorrowStart = new Date(todayStart);
+    tomorrowStart.setDate(tomorrowStart.getDate() + 1);
 
-    switch(activeContent){
-      case LIST_IDS.INBOX:
-        return tasks.filter(task => {
-          if (task.completed) return false;
-          return task;
-        });
-      case LIST_IDS.MY_DAY:
-        return tasks.filter(task => {
-          if (task.completed) return false;
-          if (!task.dueDate) return false;
-          const taskDate = new Date(task.dueDate);
-          taskDate.setHours(0, 0, 0, 0)
-          return taskDate <= today;
-        });
-      case LIST_IDS.IMPORTANT:
-        return tasks.filter(task => {
-          if(task.completed) return false;
-          return task.important;
-        })
-      case LIST_IDS.PLANNED:
-        return tasks.filter(task => {
-          if(task.completed) return false;
-          if (!task.dueDate) return false;  
-          const taskDate = new Date(task.dueDate);
-          taskDate.setHours(0, 0, 0, 0);
-          return taskDate >= today;
-        });
-      default:
-        return tasks.filter(task => {
-          if(task.completed) return false;
-          return task.list === activeContent;
-        });
-    }
+    const filterMap = {
+      [LIST_IDS.INBOX]: (task) => !task.completed,
+      
+      [LIST_IDS.MY_DAY]: (task) => {
+        if (task.completed) return false;
+        if (!task.date) return false;
+        
+        const taskDate = new Date(task.date);
+        taskDate.setHours(0, 0, 0, 0);
+        return taskDate <= todayStart;
+      },
+      
+      [LIST_IDS.IMPORTANT]: (task) => !task.completed && task.important,
+      
+      [LIST_IDS.PLANNED]: (task) => {
+        if (task.completed) return false;
+        if (!task.date) return false;
+        
+        const taskDate = new Date(task.date);
+        taskDate.setHours(0, 0, 0, 0);
+        return taskDate >= tomorrowStart;
+      },
+      
+      default: (task) => !task.completed && task.list === activeContent
+    };
+
+    const filterFn = filterMap[activeContent] || filterMap.default;
+    return tasks.filter(filterFn);
+  };
+
+  const handleAddTask = (newTask) => {
+    const activeItem = sideBarItems.find(item => item.id === activeContent);
+    
+    setTasks([...tasks, {
+      id: `task-${Date.now()}`,
+      text: newTask.text,
+      completed: false,
+      list: activeItem?.deletable === false && activeContent !== LIST_IDS.INBOX
+        ? LIST_IDS.INBOX
+        : activeContent,
+      important: false,
+      date: null
+    }]);
   }
-
-const handleAddTask = (newTask) => {
-  const activeItem = sideBarItems.find(item => item.id === activeContent);
-  
-  setTasks([...tasks, {
-    id: `task-${Date.now()}`,
-    text: newTask.text,
-    completed: false,
-    list: activeItem?.deletable === false && activeContent !== LIST_IDS.INBOX
-      ? LIST_IDS.INBOX
-      : activeContent,
-    important: false,
-    dueDate: null
-  }]);
-}
 
   const handleRemoveTask = (taskId) => {
     setTasks(tasks.filter(task => task.id !== taskId));
