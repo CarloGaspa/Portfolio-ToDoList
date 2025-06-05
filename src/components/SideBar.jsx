@@ -1,7 +1,6 @@
 import '../App.css';
 import './SideBar.css';
 import { FiPlus, FiTrash2, FiEdit2 } from 'react-icons/fi';
-import { useState } from 'react';
 
 export default function SideBar({
   items = [],
@@ -66,8 +65,8 @@ export default function SideBar({
             </li>
           ))}
       </ul>
-      <button onClick={handleAdd} className='add-btn'>
-        <span className="icon">{<FiPlus />}</span>
+      <button onClick={onAddItem} className='add-btn'>
+        <span className="icon"><FiPlus /></span>
         <span className="label">Add list</span>
       </button>
     </aside>

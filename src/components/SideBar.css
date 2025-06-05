@@ -18,7 +18,8 @@
 /* === List Items === */
 .sidebar li, .add-btn {
   padding: 13px 24px;
-  margin: 0;
+  margin: 0px;
+  margin-top: 2px;
   cursor: pointer;
   position: relative;
   font-weight: 300;

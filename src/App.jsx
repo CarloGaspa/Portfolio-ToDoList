@@ -3,6 +3,8 @@ import { useState } from 'react'
 import TopBar from './components/TopBar.jsx'
 import SideBar from './components/SideBar.jsx'
 import Content from './components/Content.jsx'
+import ModalList from './components/ModalList.jsx'
+
 import {
   FiInbox,
   FiUser,
@@ -36,6 +38,7 @@ const DEFAULT_COLORS = [
 export default function App() {
   /* States */
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isModalListOpen, setIsModalListOpen] = useState(false);
   const [sideBarItems, setSideBarItems] = useState([
     { id: LIST_IDS.INBOX      , name: 'Inbox'     , icon: <FiInbox />         , deletable: false    , color: DEFAULT_COLORS[0]},
     { id: LIST_IDS.MY_DAY     , name: 'My Day'    , icon: <FiSun />           , deletable: false    , color: DEFAULT_COLORS[1]},
@@ -166,7 +169,7 @@ export default function App() {
           isOpen={sidebarOpen}
           items={sideBarItems}
           onSelectItem={setActiveContent}
-          onAddItem={handleAddItem}
+          onAddItem={() => setIsModalListOpen(true)}  // apri pop-up
           onRemoveItem={handleRemoveItem}
           activeContent={activeContent}
         />
@@ -182,6 +185,14 @@ export default function App() {
           />
         </div>
       </div>
+      <ModalList
+        open={isModalListOpen}
+        onOpenChange={setIsModalListOpen}
+        onConfirm={(newItem) => {
+          handleAddItem(newItem);
+          setIsModalListOpen(false);
+        }}
+      />
     </>
   )
 }
