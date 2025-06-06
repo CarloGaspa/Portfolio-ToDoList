@@ -57,19 +57,19 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
   const [selectedIconName, setSelectedIconName] = useState(ICONS[0].name);
 
   const isValid = name.trim().length > 0;
+  const iconObj = ICONS.find((iconObj) => iconObj.name === selectedIconName);
+  const IconeComponent = iconObj.icon;
 
   const handleConfirm = () => {
     if (!isValid) return;
-    const selectedIconObject = ICONS.find(
-      (iconObj) => iconObj.name === selectedIconName
-    );
-    onConfirm({
+    const newList = {
       id: `list-${Date.now()}`,
       name: name.trim(),
-      icon: selectedIconObject.icon,
+      icon: IconeComponent,
       deletable: true,
       color: selectedColor,
-    });
+    };
+    onConfirm(newList);
     resetModal();
   };
 
@@ -93,7 +93,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
           style={{ backgroundColor: "rgb(37, 35, 33)" }}
           className="fixed top-1/2 left-1/2 p-8 rounded-2xl shadow-2xl transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md text-gray-100 font-sans"
         >
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center justify-between mb-3">
             <Dialog.Close asChild>
               <button
                 className="bg-transparent border-transparent text-blue-600 hover:text-blue-500 opacity-90 hover:opacity-100 font-medium focus:outline-none focus:ring-0 focus:ring-offset-0 px-2 py-1"
@@ -126,6 +126,17 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
             </button>
           </div>
 
+          {/* PREVIEW */}
+          <div className="flex justify-center mb-1">
+            <div
+              className="aspect-square inline-flex items-center justify-center rounded-full bg-neutral-800 p-4 mb-2"
+              style={{ backgroundColor: "rgb(50, 48, 46)" }}
+            >
+              <IconeComponent size={50} color={selectedColor} />
+            </div>
+          </div>
+
+          {/* INPUT */}
           <Dialog.Description className="mb-4 text-gray-400 text-base">
             Enter the name of the new list
           </Dialog.Description>
@@ -175,7 +186,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
 
           {/* ICONE */}
           <div
-            className="bg-neutral-800 p-3 rounded-lg mb-3 mt-3"
+            className="bg-neutral-800 p-3 rounded-lg mb-1 mt-3"
             style={{ backgroundColor: "rgb(50, 48, 46)" }}
           >
             <div className="grid grid-cols-6 gap-3 justify-items-center">
@@ -186,7 +197,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
                     key={name}
                     type="button"
                     onClick={() => setSelectedIconName(name)}
-                    className={`aspect-square h-8 flex items-center justify-center rounded-full border transition-transform duration-150 ${
+                    className={`aspect-square h-10 flex items-center justify-center rounded-full border transition-transform duration-150 ${
                       isSelected
                         ? "border-white scale-110"
                         : "border-transparent"
