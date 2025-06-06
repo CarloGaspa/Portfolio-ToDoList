@@ -1,6 +1,6 @@
 import "../App.css";
 import "./SideBar.css";
-import { FiPlus, FiTrash2 } from "react-icons/fi";
+import { FiX, FiPlus, FiTrash2 } from "react-icons/fi";
 
 export default function SideBar({
   items = [],
@@ -9,6 +9,7 @@ export default function SideBar({
   onAddItem,
   onRemoveItem,
   activeContent,
+  onClose,
 }) {
   const handleSelect = (id) => {
     if (onSelectItem) onSelectItem(id);
@@ -51,6 +52,13 @@ export default function SideBar({
           <FiPlus />
         </span>
         <span className="label">Add list</span>
+      </button>
+      <button
+        className="close-btn"
+        onClick={onClose}
+        aria-label="Close sidebar"
+      >
+        <FiX size={20} />
       </button>
     </aside>
   );

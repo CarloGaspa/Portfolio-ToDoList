@@ -1,10 +1,10 @@
 /* === Sidebar Container === */
 .sidebar {
   position: fixed;
-  top: 4rem;
+  top: 3rem;
   left: 0;
   width: 17rem;
-  height: calc(100% - 4rem);
+  height: calc(100% - 3rem);
   background-color: rgb(37, 36, 35);
   color: #f3f4f6;
   box-sizing: border-box;

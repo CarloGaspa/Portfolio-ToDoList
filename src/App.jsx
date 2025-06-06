@@ -390,6 +390,7 @@ export default function App() {
       <div className="main-area">
         <SideBar
           isOpen={sidebarOpen}
+          onClose={() => setSidebarOpen(false)}
           items={sideBarItems}
           onSelectItem={setActiveContent}
           onAddItem={() => setIsModalListOpen(true)} // apri pop-up
@@ -413,8 +414,8 @@ export default function App() {
         </div>
         <DetailsBar
           isOpen={taskDetailsOpen}
-          item={tasks.find((task) => task.id === activeTask)}
           onClose={() => setTaskDetailsOpen(false)}
+          item={tasks.find((task) => task.id === activeTask)}
         />
       </div>
       <ModalList
