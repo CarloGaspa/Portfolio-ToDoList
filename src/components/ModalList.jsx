@@ -1,49 +1,92 @@
-import '../App.css';
+import "../App.css";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useState } from 'react';
-import {
-  FiCode, FiCpu, FiDatabase, FiCloud, FiAward, FiPieChart,
-  FiBarChart2, FiSlack, FiBook, FiTwitter, FiLinkedin, FiYoutube,
-  FiServer, FiShield, FiKey, FiMail, FiUsers, FiZap,
-  FiTarget, FiPocket, FiClock, FiHelpCircle, FiMap, FiNavigation
-} from 'react-icons/fi';
+import { useState } from "react";
+import * as FiIcons from "react-icons/fi";
 
-const ICONS = [
-  FiCode, FiCpu, FiDatabase, FiCloud, FiAward, FiPieChart,
-  FiBarChart2, FiSlack, FiBook, FiTwitter, FiLinkedin, FiYoutube,
-  FiServer, FiShield, FiKey, FiMail, FiUsers, FiZap,
-  FiTarget, FiPocket, FiClock, FiHelpCircle, FiMap, FiNavigation
+// Convertiamo gli import in un array di oggetti dinamico
+const ICON_KEYS = [
+  "FiList",
+  "FiCpu",
+  "FiDatabase",
+  "FiCloud",
+  "FiAward",
+  "FiPieChart",
+  "FiBarChart2",
+  "FiSlack",
+  "FiBook",
+  "FiTwitter",
+  "FiLinkedin",
+  "FiYoutube",
+  "FiServer",
+  "FiShield",
+  "FiKey",
+  "FiMail",
+  "FiUsers",
+  "FiZap",
+  "FiTarget",
+  "FiPocket",
+  "FiClock",
+  "FiHelpCircle",
+  "FiMap",
+  "FiNavigation",
 ];
 
+const ICONS = ICON_KEYS.map((key) => ({
+  name: key,
+  icon: FiIcons[key],
+}));
+
 const COLORS = [
-  "#F44336", "#E91E63", "#9C27B0", "#673AB7", "#3F51B5", "#2196F3",
-  "#03A9F4", "#00BCD4", "#009688", "#4CAF50", "#8BC34A", "#FFEB3B",
+  "#F44336",
+  "#E91E63",
+  "#9C27B0",
+  "#673AB7",
+  "#3F51B5",
+  "#2196F3",
+  "#03A9F4",
+  "#00BCD4",
+  "#009688",
+  "#4CAF50",
+  "#8BC34A",
+  "#FFEB3B",
 ];
 
 export default function ModalList({ open, onOpenChange, onConfirm }) {
   const [name, setName] = useState("");
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
-  const [selectedIcon, setSelectedIcon] = useState(ICONS[0]);
+  const [selectedIconName, setSelectedIconName] = useState(ICONS[0].name);
 
   const isValid = name.trim().length > 0;
 
   const handleConfirm = () => {
     if (!isValid) return;
-    const newId = `list-${Date.now()}`;
+    const selectedIconObject = ICONS.find(
+      (iconObj) => iconObj.name === selectedIconName
+    );
     onConfirm({
-      id: newId,
+      id: `list-${Date.now()}`,
       name: name.trim(),
-      icon: selectedIcon,
+      icon: selectedIconObject.icon,
       deletable: true,
       color: selectedColor,
     });
+    resetModal();
+  };
+
+  const resetModal = () => {
     setName("");
     setSelectedColor(COLORS[0]);
-    setSelectedIcon(ICONS[0]);
+    setSelectedIconName(ICONS[0].name);
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root
+      open={open}
+      onOpenChange={(isOpen) => {
+        onOpenChange(isOpen);
+        if (!isOpen) resetModal(); // reset solo alla chiusura
+      }}
+    >
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm" />
         <Dialog.Content
@@ -55,7 +98,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
               <button
                 className="bg-transparent border-transparent text-blue-600 hover:text-blue-500 opacity-90 hover:opacity-100 font-medium focus:outline-none focus:ring-0 focus:ring-offset-0 px-2 py-1"
                 type="button"
-                onClick={() => setName("")}
+                onClick={resetModal}
               >
                 Cancel
               </button>
@@ -98,7 +141,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => {
-              if (e.key === 'Enter' && isValid) {
+              if (e.key === "Enter" && isValid) {
                 e.preventDefault();
                 handleConfirm();
               }
@@ -118,8 +161,10 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
                   key={color}
                   type="button"
                   onClick={() => setSelectedColor(color)}
-                  className={`aspect-square w-8 rounded-full border-2 transition-transform duration-150 focus:outline-none ${
-                    selectedColor === color ? "border-white scale-110" : "border-transparent"
+                  className={`aspect-square w-8 rounded-full border-2 transition-transform duration-150 ${
+                    selectedColor === color
+                      ? "border-white scale-110"
+                      : "border-transparent"
                   }`}
                   style={{ backgroundColor: color }}
                   aria-label={`Select color ${color}`}
@@ -134,24 +179,26 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
             style={{ backgroundColor: "rgb(50, 48, 46)" }}
           >
             <div className="grid grid-cols-6 gap-3 justify-items-center">
-              {ICONS.map((IconComponent, index) => (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => setSelectedIcon(IconComponent)}
-                  className={`aspect-square w-8 h-8 flex items-center justify-center rounded-full border-2 transition-transform duration-150`}
-                  style={{
-                    borderColor: selectedIcon === IconComponent ? "white" : "transparent",
-                    color: selectedColor,
-                  }}
-                  aria-label={`Select icon ${IconComponent.displayName || IconComponent.name || index}`}
-                >
-                  <IconComponent size={24} />
-                </button>
-              ))}
+              {ICONS.map(({ name, icon: IconComponent }) => {
+                const isSelected = selectedIconName === name;
+                return (
+                  <button
+                    key={name}
+                    type="button"
+                    onClick={() => setSelectedIconName(name)}
+                    className={`aspect-square h-8 flex items-center justify-center rounded-full border transition-transform duration-150 ${
+                      isSelected
+                        ? "border-white scale-110"
+                        : "border-transparent"
+                    }`}
+                    aria-label={`Select icon ${name}`}
+                  >
+                    <IconComponent size={18} color="white" />
+                  </button>
+                );
+              })}
             </div>
           </div>
-
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
