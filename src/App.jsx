@@ -4,18 +4,16 @@ import TopBar from "./components/TopBar.jsx";
 import SideBar from "./components/SideBar.jsx";
 import Content from "./components/Content.jsx";
 import ModalList from "./components/ModalList.jsx";
+import DetailsBar from "./components/DetailsBar.jsx";
 
 import {
   FiInbox,
-  FiUser,
   FiSun,
   FiAlertCircle,
   FiCalendar,
   FiBriefcase,
   FiHome,
   FiShoppingCart,
-  FiPlus,
-  FiTrash2,
 } from "react-icons/fi";
 
 const LIST_IDS = {
@@ -35,244 +33,252 @@ const DEFAULT_COLORS = [
   "#38b2ac", // Groceries (turchese)
 ];
 
+const sideBarInitialState = [
+  {
+    id: LIST_IDS.INBOX,
+    name: "Inbox",
+    icon: <FiInbox />,
+    deletable: false,
+    color: DEFAULT_COLORS[0],
+  },
+  {
+    id: LIST_IDS.MY_DAY,
+    name: "My Day",
+    icon: <FiSun />,
+    deletable: false,
+    color: DEFAULT_COLORS[1],
+  },
+  {
+    id: LIST_IDS.IMPORTANT,
+    name: "Important",
+    icon: <FiAlertCircle />,
+    deletable: false,
+    color: DEFAULT_COLORS[2],
+  },
+  {
+    id: LIST_IDS.PLANNED,
+    name: "Planned",
+    icon: <FiCalendar />,
+    deletable: false,
+    color: DEFAULT_COLORS[3],
+  },
+  {
+    id: "work",
+    name: "Work",
+    icon: <FiBriefcase />,
+    deletable: true,
+    color: DEFAULT_COLORS[4],
+  },
+  {
+    id: "home",
+    name: "Home",
+    icon: <FiHome />,
+    deletable: true,
+    color: DEFAULT_COLORS[5],
+  },
+  {
+    id: "groceries",
+    name: "Groceries",
+    icon: <FiShoppingCart />,
+    deletable: true,
+    color: DEFAULT_COLORS[6],
+  },
+];
+
+const tasksInitialState = [
+  {
+    id: "task-1",
+    text: "Complete project",
+    completed: false,
+    list: "work",
+    important: true,
+    date: "2027-06-03",
+    time: "15:00",
+  },
+  {
+    id: "task-2",
+    text: "Meeting with team",
+    completed: false,
+    list: "work",
+    important: false,
+    date: "2025-06-03",
+    time: "",
+  },
+  {
+    id: "task-3",
+    text: "Clean the house",
+    completed: false,
+    list: "home",
+    important: false,
+    date: "",
+    time: "",
+  },
+  {
+    id: "task-4",
+    text: "Buy milk",
+    completed: false,
+    list: "groceries",
+    important: true,
+    date: "2025-06-20",
+    time: "09:00",
+  },
+  {
+    id: "task-5",
+    text: "Pay bills",
+    completed: false,
+    list: "home",
+    important: false,
+    date: "",
+    time: "",
+  },
+  {
+    id: "task-6",
+    text: "Prepare presentation",
+    completed: false,
+    list: "work",
+    important: true,
+    date: "2025-06-04",
+    time: "",
+  },
+  {
+    id: "task-7",
+    text: "Go to gym",
+    completed: true,
+    list: "personal",
+    important: false,
+    date: "2025-06-20",
+    time: "18:00",
+  },
+  {
+    id: "task-8",
+    text: "Read new book",
+    completed: false,
+    list: "personal",
+    important: false,
+    date: "2025-06-20",
+    time: "",
+  },
+  {
+    id: "task-9",
+    text: "Call mom",
+    completed: false,
+    list: "personal",
+    important: true,
+    date: "",
+    time: "",
+  },
+  {
+    id: "task-10",
+    text: "Organize workspace",
+    completed: true,
+    list: "work",
+    important: false,
+    date: "2025-06-20",
+    time: "10:00",
+  },
+  {
+    id: "task-11",
+    text: "Buy Christmas gifts",
+    completed: false,
+    list: "shopping",
+    important: true,
+    date: "2025-06-05",
+    time: "16:30",
+  },
+  {
+    id: "task-12",
+    text: "Plan vacation",
+    completed: false,
+    list: "personal",
+    important: false,
+    date: "",
+    time: "",
+  },
+  {
+    id: "task-13",
+    text: "Fix leaking faucet",
+    completed: false,
+    list: "home",
+    important: true,
+    date: "2025-06-20",
+    time: "13:45",
+  },
+  {
+    id: "task-14",
+    text: "Review documents",
+    completed: true,
+    list: "work",
+    important: false,
+    date: "2024-11-15",
+    time: "",
+  },
+  {
+    id: "task-15",
+    text: "Meditate for 10 mins",
+    completed: false,
+    list: "personal",
+    important: false,
+    date: "",
+    time: "",
+  },
+  {
+    id: "task-16",
+    text: "Update resume",
+    completed: false,
+    list: "work",
+    important: true,
+    date: "2023-02-20",
+    time: "09:00",
+  },
+  {
+    id: "task-17",
+    text: "Water plants",
+    completed: true,
+    list: "home",
+    important: false,
+    date: "2025-06-20",
+    time: "08:00",
+  },
+  {
+    id: "task-18",
+    text: "Learn new recipe",
+    completed: false,
+    list: "personal",
+    important: false,
+    date: "2025-06-20",
+    time: "",
+  },
+  {
+    id: "task-19",
+    text: "Backup computer",
+    completed: false,
+    list: "work",
+    important: true,
+    date: "2026-03-15",
+    time: "17:00",
+  },
+  {
+    id: "task-20",
+    text: "Renew subscription",
+    completed: false,
+    list: "personal",
+    important: false,
+    date: "2023-04-10",
+    time: "",
+  },
+];
+
 export default function App() {
-  /* States */
+  /* States lists*/
+  const [sideBarItems, setSideBarItems] = useState(sideBarInitialState);
+  const [activeContent, setActiveContent] = useState(LIST_IDS.INBOX);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isModalListOpen, setIsModalListOpen] = useState(false);
-  const [sideBarItems, setSideBarItems] = useState([
-    {
-      id: LIST_IDS.INBOX,
-      name: "Inbox",
-      icon: <FiInbox />,
-      deletable: false,
-      color: DEFAULT_COLORS[0],
-    },
-    {
-      id: LIST_IDS.MY_DAY,
-      name: "My Day",
-      icon: <FiSun />,
-      deletable: false,
-      color: DEFAULT_COLORS[1],
-    },
-    {
-      id: LIST_IDS.IMPORTANT,
-      name: "Important",
-      icon: <FiAlertCircle />,
-      deletable: false,
-      color: DEFAULT_COLORS[2],
-    },
-    {
-      id: LIST_IDS.PLANNED,
-      name: "Planned",
-      icon: <FiCalendar />,
-      deletable: false,
-      color: DEFAULT_COLORS[3],
-    },
-    {
-      id: "work",
-      name: "Work",
-      icon: <FiBriefcase />,
-      deletable: true,
-      color: DEFAULT_COLORS[4],
-    },
-    {
-      id: "home",
-      name: "Home",
-      icon: <FiHome />,
-      deletable: true,
-      color: DEFAULT_COLORS[5],
-    },
-    {
-      id: "groceries",
-      name: "Groceries",
-      icon: <FiShoppingCart />,
-      deletable: true,
-      color: DEFAULT_COLORS[6],
-    },
-  ]);
-  const [activeContent, setActiveContent] = useState("inbox");
-  const [tasks, setTasks] = useState([
-    {
-      id: "task-1",
-      text: "Complete project",
-      completed: false,
-      list: "work",
-      important: true,
-      date: "2027-06-03",
-      time: "15:00",
-    },
-    {
-      id: "task-2",
-      text: "Meeting with team",
-      completed: false,
-      list: "work",
-      important: false,
-      date: "2025-06-03",
-      time: "",
-    },
-    {
-      id: "task-3",
-      text: "Clean the house",
-      completed: false,
-      list: "home",
-      important: false,
-      date: "",
-      time: "",
-    },
-    {
-      id: "task-4",
-      text: "Buy milk",
-      completed: false,
-      list: "groceries",
-      important: true,
-      date: "2025-06-20",
-      time: "09:00",
-    },
-    {
-      id: "task-5",
-      text: "Pay bills",
-      completed: false,
-      list: "home",
-      important: false,
-      date: "",
-      time: "",
-    },
-    {
-      id: "task-6",
-      text: "Prepare presentation",
-      completed: false,
-      list: "work",
-      important: true,
-      date: "2025-06-04",
-      time: "",
-    },
-    {
-      id: "task-7",
-      text: "Go to gym",
-      completed: true,
-      list: "personal",
-      important: false,
-      date: "2025-06-20",
-      time: "18:00",
-    },
-    {
-      id: "task-8",
-      text: "Read new book",
-      completed: false,
-      list: "personal",
-      important: false,
-      date: "2025-06-20",
-      time: "",
-    },
-    {
-      id: "task-9",
-      text: "Call mom",
-      completed: false,
-      list: "personal",
-      important: true,
-      date: "",
-      time: "",
-    },
-    {
-      id: "task-10",
-      text: "Organize workspace",
-      completed: true,
-      list: "work",
-      important: false,
-      date: "2025-06-20",
-      time: "10:00",
-    },
-    {
-      id: "task-11",
-      text: "Buy Christmas gifts",
-      completed: false,
-      list: "shopping",
-      important: true,
-      date: "2025-06-05",
-      time: "16:30",
-    },
-    {
-      id: "task-12",
-      text: "Plan vacation",
-      completed: false,
-      list: "personal",
-      important: false,
-      date: "",
-      time: "",
-    },
-    {
-      id: "task-13",
-      text: "Fix leaking faucet",
-      completed: false,
-      list: "home",
-      important: true,
-      date: "2025-06-20",
-      time: "13:45",
-    },
-    {
-      id: "task-14",
-      text: "Review documents",
-      completed: true,
-      list: "work",
-      important: false,
-      date: "2024-11-15",
-      time: "",
-    },
-    {
-      id: "task-15",
-      text: "Meditate for 10 mins",
-      completed: false,
-      list: "personal",
-      important: false,
-      date: "",
-      time: "",
-    },
-    {
-      id: "task-16",
-      text: "Update resume",
-      completed: false,
-      list: "work",
-      important: true,
-      date: "2023-02-20",
-      time: "09:00",
-    },
-    {
-      id: "task-17",
-      text: "Water plants",
-      completed: true,
-      list: "home",
-      important: false,
-      date: "2025-06-20",
-      time: "08:00",
-    },
-    {
-      id: "task-18",
-      text: "Learn new recipe",
-      completed: false,
-      list: "personal",
-      important: false,
-      date: "2025-06-20",
-      time: "",
-    },
-    {
-      id: "task-19",
-      text: "Backup computer",
-      completed: false,
-      list: "work",
-      important: true,
-      date: "2026-03-15",
-      time: "17:00",
-    },
-    {
-      id: "task-20",
-      text: "Renew subscription",
-      completed: false,
-      list: "personal",
-      important: false,
-      date: "2023-04-10",
-      time: "",
-    },
-  ]);
+
+  /* States tasks*/
+  const [tasks, setTasks] = useState(tasksInitialState);
+  const [activeTask, setActivetask] = useState("");
+  const [taskDetailsOpen, setTaskDetailsOpen] = useState(false);
 
   /* Functions */
   const toggleSideBar = () => setSidebarOpen((prev) => !prev);
@@ -372,6 +378,11 @@ export default function App() {
     );
   };
 
+  const handleSelectTask = (taskId) => {
+    setActivetask(taskId);
+    setTaskDetailsOpen(true);
+  };
+
   /* Return */
   return (
     <>
@@ -391,21 +402,28 @@ export default function App() {
               (item) => item.id === activeContent
             )}
             tasks={getFilteredTasks()}
+            onSelectTask={handleSelectTask}
             onAddTask={handleAddTask}
             onRemoveTask={handleRemoveTask}
             onToggleComplete={handleToggleComplete}
             onToggleImportant={handleToggleImportant}
             currentList={activeContent}
+            activeTask={activeTask}
           />
         </div>
+        <DetailsBar
+          isOpen={taskDetailsOpen}
+          item={tasks.find((task) => task.id === activeTask)}
+          onClose={() => setTaskDetailsOpen(false)}
+        />
       </div>
       <ModalList
         open={isModalListOpen}
         onOpenChange={setIsModalListOpen}
         onConfirm={(newItem) => {
-          handleAddItem(newItem); // aggiunge la nuova lista
-          setActiveContent(newItem.id); // seleziona la nuova lista appena creata
-          setIsModalListOpen(false); // chiude la modale
+          handleAddItem(newItem);
+          setActiveContent(newItem.id);
+          setIsModalListOpen(false);
         }}
       />
     </>

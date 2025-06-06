@@ -6,11 +6,13 @@ import { FiPlus, FiTrash2, FiCheck, FiCircle, FiStar } from "react-icons/fi";
 export default function Content({
   activeContent,
   tasks = [],
+  onSelectTask,
   onAddTask,
   onRemoveTask,
   onToggleComplete,
   onToggleImportant,
   currentList,
+  activeTask,
 }) {
   const [newTasktext, setNewTasktext] = useState("");
 
@@ -23,8 +25,13 @@ export default function Content({
     }
   };
 
+  const handleSelect = (taskId) => {
+    onSelectTask(taskId);
+  };
+
   return (
     <div className="content-container">
+      {/* TITOLO */}
       <div className="content-header">
         <span
           className="content-icon"
@@ -45,13 +52,18 @@ export default function Content({
           {activeContent.name}
         </h1>
       </div>
+
+      {/* LISTA TASK */}
       <ul className="task-list">
         {tasks.map((task) => (
           <li
             key={task.id}
-            className={`${task.completed ? "completed" : ""} ${
-              task.important ? "important" : ""
-            }`}
+            className={`
+              ${task.completed ? "completed" : ""} 
+              ${task.important ? "important" : ""}
+              ${task.id === activeTask ? "selected" : ""}
+            `}
+            onClick={() => handleSelect(task.id)}
           >
             <div className="task-controls">
               <button
@@ -94,9 +106,7 @@ export default function Content({
           </li>
         ))}
       </ul>
-      {tasks.length === 0 && currentList !== "account" && (
-        <p className="no-tasks">No tasks in this list</p>
-      )}
+      {tasks.length === 0 && <p className="no-tasks">No tasks in this list</p>}
       <input
         type="text"
         value={newTasktext}

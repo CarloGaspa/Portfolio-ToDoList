@@ -1,6 +1,6 @@
 import "../App.css";
 import "./SideBar.css";
-import { FiPlus, FiTrash2, FiEdit2 } from "react-icons/fi";
+import { FiPlus, FiTrash2 } from "react-icons/fi";
 
 export default function SideBar({
   items = [],
@@ -22,7 +22,7 @@ export default function SideBar({
             key={item.id}
             className={activeContent === item.id ? "selected" : ""}
             onClick={() => handleSelect(item.id)}
-            style={{ "--accent": item.color || "#667eea" }} // Aggiungi questa linea
+            style={{ "--accent": item.color || "#667eea" }}
           >
             <span className="icon" style={{ color: item.color || "#667eea" }}>
               {item.icon && typeof item.icon === "function" ? (

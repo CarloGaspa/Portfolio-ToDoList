@@ -3,7 +3,7 @@
   position: fixed;
   top: 4rem;
   left: 0;
-  width: 15rem;
+  width: 17rem;
   height: calc(100% - 4rem);
   background-color: rgb(37, 36, 35);
   color: #f3f4f6;
@@ -16,7 +16,8 @@
 }
 
 /* === List Items === */
-.sidebar li, .add-btn {
+.sidebar li,
+.add-btn {
   padding: 13px 24px;
   margin: 0px;
   margin-top: 2px;
@@ -49,8 +50,9 @@
 
 /* === Decorative Elements === */
 /* Left accent bar */
-.sidebar li:before, li.selected:before {
-  content: '';
+.sidebar li:before,
+li.selected:before {
+  content: "";
   position: absolute;
   left: 6px;
   top: 50%;
@@ -62,7 +64,8 @@
   transition: transform 0.2s ease, width 0.3s ease;
 }
 
-.sidebar li:hover:before, li.selected:before {
+.sidebar li:hover:before,
+li.selected:before {
   transition: transform 0.2s ease, width 0.3s ease;
   transform: scaleY(1) translateY(-50%);
   background-color: var(--accent);
@@ -107,7 +110,7 @@
 }
 
 .add-btn:focus {
-  outline: none;  
+  outline: none;
   transition: transform 0.2s ease, width 0.3s ease;
 }
 
@@ -135,7 +138,7 @@
 
   .sidebar.open {
     left: 0;
-    width: 15rem;
+    width: 17rem;
   }
 
   .content {

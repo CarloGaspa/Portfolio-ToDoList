@@ -17,10 +17,9 @@
 
 /* === Content === */
 .content-area {
-  margin-left: 15rem;
+  margin-left: 17rem;
   flex: 1;
-  padding: 1rem;
   overflow: auto;
-  border: 1px solid rgb(62,62,62);
+  border: 1px solid rgb(62, 62, 62);
   width: calc(100% - 15rem);
 }
