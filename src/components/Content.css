@@ -151,3 +151,30 @@
 .task-list .selected {
   background-color: rgba(102, 126, 234, 0.1);
 }
+
+/* Rimuove l'outline da tutti gli elementi interattivi */
+button,
+input,
+textarea,
+select,
+a {
+  outline: none;
+}
+
+/* Versione più specifica per i tuoi elementi */
+.toggle-complete:focus,
+.toggle-important:focus,
+.toggle-normal:focus,
+.delete-task:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Alternativa migliore per accessibilità */
+.toggle-completen:focus-visible,
+.toggle-important:focus-visible,
+.toggle-normal:focus-visible,
+.delete-task:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent);
+}

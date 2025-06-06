@@ -1,26 +1,51 @@
+:root {
+  --accent: #667eea;
+  --sidebar-bg: rgb(37, 36, 35);
+  --sidebar-border: rgb(62, 62, 62);
+  --text-light: #f3f4f6;
+  --text-muted: #64748b;
+}
+
 /* === Sidebar Container === */
 .sidebar {
   position: fixed;
   top: 3rem;
   left: 0;
   width: 17rem;
-  height: calc(100% - 3rem);
-  background-color: rgb(37, 36, 35);
-  color: #f3f4f6;
+  height: calc(100vh - 3rem);
+  background-color: var(--sidebar-bg);
+  color: var(--text-light);
   box-sizing: border-box;
   overflow-y: auto;
-  border: 1px solid rgb(62, 62, 62);
+  overflow-x: hidden;
+  border-right: 1px solid var(--sidebar-border);
   transition: left 0.3s ease-in-out;
   z-index: 40;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) var(--sidebar-bg);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background-color: var(--accent);
+  border-radius: 3px;
+}
+
+/* === List Container === */
+.sidebar ul {
+  list-style: none;
+  padding: 0.5rem 0;
 }
 
 /* === List Items === */
 .sidebar li,
 .add-btn {
-  padding: 13px 24px;
-  margin: 0px;
-  margin-top: 2px;
+  padding: 0.8125rem 1.5rem;
+  margin: 0.125rem 0;
   cursor: pointer;
   position: relative;
   font-weight: 300;
@@ -28,14 +53,14 @@
   align-items: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: 0.375rem 0 0 0.375rem;
+  user-select: none;
 }
 
 /* Item States */
 .sidebar li:hover {
   background-color: rgba(102, 126, 234, 0.1);
-  color: white;
+  color: var(--text-light);
   transform: translateX(5px);
-  cursor: pointer;
 }
 
 .sidebar li:active {
@@ -49,40 +74,31 @@
 }
 
 /* === Decorative Elements === */
-/* Left accent bar */
-.sidebar li:before,
-li.selected:before {
+.sidebar li::before {
   content: "";
   position: absolute;
   left: 6px;
   top: 50%;
   height: 60%;
   width: 4px;
-  background-color: var(--accent, #667eea);
-  transform: scaleY(0) translateY(-50%); /* Centra verticalmente */
+  background-color: var(--accent);
+  transform: scaleY(0) translateY(-50%);
   transform-origin: center top;
   transition: transform 0.2s ease, width 0.3s ease;
 }
 
-.sidebar li:hover:before,
-li.selected:before {
-  transition: transform 0.2s ease, width 0.3s ease;
+.sidebar li:hover::before,
+.sidebar li.selected::before {
   transform: scaleY(1) translateY(-50%);
-  background-color: var(--accent);
 }
 
 /* Icons */
-.icon {
-  margin-right: 12px;
+.sidebar .icon {
+  color: var(--accent);
+  margin-right: 0.75rem;
   font-size: 1.1rem;
   transition: transform 0.2s ease;
-}
-
-.sidebar li .icon {
-  color: var(--accent, #667eea);
-  margin-right: 12px;
-  font-size: 1.1rem;
-  transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 .sidebar li:hover .icon {
@@ -94,40 +110,34 @@ li.selected:before {
 }
 
 /* === Buttons === */
-/* Add Button */
 .add-btn {
   width: 100%;
-  background-color: rgb(37, 36, 35);
-  color: #f3f4f6;
+  background-color: var(--sidebar-bg);
+  color: var(--text-light);
   border: none;
   text-align: left;
 }
 
 .add-btn:hover {
   background-color: rgba(102, 126, 234, 0.1);
-  color: white;
   transform: translateX(5px);
 }
 
-.add-btn:focus {
-  outline: none;
-  transition: transform 0.2s ease, width 0.3s ease;
-}
-
-/* Delete Button */
 .delete-btn {
   position: absolute;
-  right: 16px;
-  transition: opacity 0.2s ease;
+  right: 1rem;
+  opacity: 0;
+  transition: opacity 0.2s ease, color 0.2s ease;
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--text-muted);
   cursor: pointer;
-  padding: 4px;
+  padding: 0.25rem;
 }
 
 .sidebar li:hover .delete-btn {
-  color: white;
+  opacity: 1;
+  color: var(--text-light);
 }
 
 /* === Responsive Design === */
@@ -140,26 +150,42 @@ li.selected:before {
     left: 0;
     width: 17rem;
   }
+}
 
+/* === Content Shift for Desktop === */
+@media (min-width: 769px) {
   .content {
+    margin-left: 17rem;
+    transition: margin-left 0.3s ease-in-out;
+  }
+
+  .sidebar-collapsed + .content {
     margin-left: 0;
-    width: 100%; /* Su mobile occupa tutta la larghezza */
   }
+}
 
-  main {
-    margin-left: 0;
-  }
+/* Rimuove l'outline da tutti gli elementi interattivi */
+button,
+input,
+textarea,
+select,
+a {
+  outline: none;
+}
 
-  .topbar-nav {
-    display: none;
-  }
+/* Versione più specifica per i tuoi elementi */
+.add-btn:focus,
+.close-btn:focus,
+.delete-btn:focus,
+.sidebar li:focus {
+  outline: none;
+  box-shadow: none;
+}
 
-  .menu-toggle {
-    display: block;
-    background: none;
-    border: none;
-    color: inherit;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
+/* Alternativa migliore per accessibilità */
+.add-btn:focus-visible,
+.delete-btn:focus-visible,
+.sidebar li:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent);
 }
