@@ -1,6 +1,12 @@
 import "../App.css";
 import "./SideBar.css";
-import { FiX, FiPlus, FiTrash2 } from "react-icons/fi";
+import {
+  FiX,
+  FiPlus,
+  FiTrash2,
+  FiChevronLeft,
+  FiChevronRight,
+} from "react-icons/fi";
 
 export default function SideBar({
   items = [],
@@ -9,7 +15,7 @@ export default function SideBar({
   onAddItem,
   onRemoveItem,
   activeContent,
-  onClose,
+  onOpenClose,
 }) {
   const handleSelect = (id) => {
     if (onSelectItem) onSelectItem(id);
@@ -25,6 +31,7 @@ export default function SideBar({
             onClick={() => handleSelect(item.id)}
             style={{ "--accent": item.color || "#667eea" }}
           >
+            {/* ICONA */}
             <span className="icon" style={{ color: item.color || "#667eea" }}>
               {item.icon && typeof item.icon === "function" ? (
                 <item.icon size={18} />
@@ -32,8 +39,9 @@ export default function SideBar({
                 item.icon
               )}
             </span>
-            <span className="label">{item.name}</span>
-            {item.deletable && (
+            {/* TITOLO */}
+            {isOpen && <span className="label">{item.name}</span>}
+            {isOpen && item.deletable && (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
@@ -51,14 +59,14 @@ export default function SideBar({
         <span className="icon">
           <FiPlus />
         </span>
-        <span className="label">Add list</span>
+        {isOpen && <span className="label">Add list</span>}
       </button>
       <button
-        className="close-btn"
-        onClick={onClose}
-        aria-label="Close sidebar"
+        className="openClose-btn"
+        onClick={onOpenClose}
+        aria-label="Open Close sidebar"
       >
-        <FiX size={20} />
+        {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
       </button>
     </aside>
   );

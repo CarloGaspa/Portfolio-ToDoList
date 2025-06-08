@@ -390,7 +390,7 @@ export default function App() {
       <div className="main-area">
         <SideBar
           isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
+          onOpenClose={() => setSidebarOpen(!sidebarOpen)}
           items={sideBarItems}
           onSelectItem={setActiveContent}
           onAddItem={() => setIsModalListOpen(true)} // apri pop-up

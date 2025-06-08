@@ -57,10 +57,26 @@
 }
 
 /* Item States */
-.sidebar li:hover {
+.sidebar li:hover,
+.openClose-btn:hover {
   background-color: rgba(102, 126, 234, 0.1);
   color: var(--text-light);
+}
+
+.sidebar li:hover {
   transform: translateX(5px);
+}
+.openClose-btn:hover {
+  transform: scale(1.1);
+}
+
+.openClose-btn {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+  border: 0;
+  padding: 10px 20px;
+  transition: transform 0.3s ease;
 }
 
 .sidebar li:active {
@@ -175,7 +191,7 @@ a {
 
 /* Versione più specifica per i tuoi elementi */
 .add-btn:focus,
-.close-btn:focus,
+.openClose-btn:focus,
 .delete-btn:focus,
 .sidebar li:focus {
   outline: none;
