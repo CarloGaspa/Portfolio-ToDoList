@@ -115,15 +115,6 @@
   justify-content: center;
 }
 
-.content-container input[type="text"] {
-  width: 100%;
-  padding: 10px 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  margin-top: auto;
-}
-
 .content-container input[type="text"]:focus {
   outline: none;
   border-color: #007bff;
@@ -177,4 +168,18 @@ a {
 .delete-task:focus-visible {
   outline: none;
   box-shadow: 0 0 0 2px var(--accent);
+}
+
+.input-area {
+  display: flex;
+  justify-content: center;
+}
+
+.content-container input[type="text"] {
+  width: 80%;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin-top: auto;
 }

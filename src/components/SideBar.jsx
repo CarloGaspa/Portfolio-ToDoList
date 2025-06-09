@@ -1,5 +1,6 @@
 import "../App.css";
 import "./SideBar.css";
+import { useState, useEffect } from "react";
 import {
   FiX,
   FiPlus,
@@ -21,6 +22,18 @@ export default function SideBar({
     if (onSelectItem) onSelectItem(id);
   };
 
+  const [showLabels, setShowLabels] = useState(true);
+
+  useEffect(() => {
+    if (isOpen) {
+      // Ritardo di 50ms per assicurarsi che la sidebar sia completamente aperta prima dell'animazione
+      const timer = setTimeout(() => setShowLabels(true), 0);
+      return () => clearTimeout(timer);
+    } else {
+      setShowLabels(false);
+    }
+  }, [isOpen]);
+
   return (
     <aside className={`sidebar ${isOpen ? "open" : "shorted"}`}>
       <ul>
@@ -40,7 +53,11 @@ export default function SideBar({
               )}
             </span>
             {/* TITLE */}
-            {isOpen && <span className="label">{item.name}</span>}
+            {isOpen && (
+              <span className={`label ${showLabels ? "show" : ""}`}>
+                {item.name}
+              </span>
+            )}
             {isOpen && item.deletable && (
               <button
                 onClick={(e) => {
@@ -60,7 +77,9 @@ export default function SideBar({
         <span className="icon">
           <FiPlus />
         </span>
-        {isOpen && <span className="label">Add list</span>}
+        {isOpen && (
+          <span className={`label ${showLabels ? "show" : ""}`}>Add list</span>
+        )}
       </button>
       {/* SHORTED */}
       <button

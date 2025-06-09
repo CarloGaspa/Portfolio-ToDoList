@@ -107,13 +107,15 @@ export default function Content({
         ))}
       </ul>
       {tasks.length === 0 && <p className="no-tasks">No tasks in this list</p>}
-      <input
-        type="text"
-        value={newTasktext}
-        onChange={(e) => setNewTasktext(e.target.value)}
-        onKeyPress={(e) => e.key === "Enter" && handleAddTask()}
-        placeholder={`Add a task to ${activeContent?.name || "this list"}...`}
-      />
+      <div className="input-area">
+        <input
+          type="text"
+          value={newTasktext}
+          onChange={(e) => setNewTasktext(e.target.value)}
+          onKeyPress={(e) => e.key === "Enter" && handleAddTask()}
+          placeholder={`Add a task to ${activeContent?.name || "this list"}...`}
+        />
+      </div>
     </div>
   );
 }

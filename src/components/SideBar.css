@@ -11,6 +11,7 @@
   top: 3rem;
   left: 0;
   width: 17rem;
+  min-width: 65px;
   height: calc(100vh - 3rem);
   background-color: var(--sidebar-bg);
   color: var(--text-light);
@@ -46,7 +47,6 @@
 /* === List Container === */
 .sidebar ul {
   list-style: none;
-  padding: 0.5rem 0;
 }
 
 /* === List Items === */
@@ -83,7 +83,7 @@
 .openClose-btn {
   position: absolute;
   bottom: 20px;
-  left: 10px;
+  left: 9px;
   width: 45px;
   border: 0;
   padding: 10px;
@@ -212,16 +212,14 @@ a {
   }
 }
 
-/* Animazione per le label */
-.sidebar li .label {
-  display: inline-block;
-  opacity: 1;
-  transition: opacity 0.3s ease 0.2s,
-    /* Ritardo di 200ms */ transform 0.3s ease 0.2s;
+/* Animazione per il testo quando appare */
+.sidebar.open .label {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.08s ease 0.08s, transform 0.1s ease 0.1s;
 }
 
-/* Stato quando la sidebar è chiusa */
-.sidebar.shorted li .label {
-  opacity: 0;
-  transition: opacity 0.15s ease, transform 0.15s ease;
+.sidebar.open .label.show {
+  opacity: 1;
+  transform: translateX(0);
 }

@@ -272,7 +272,7 @@ export default function App() {
   /* States lists*/
   const [sideBarItems, setSideBarItems] = useState(sideBarInitialState);
   const [activeContent, setActiveContent] = useState(LIST_IDS.INBOX);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [isModalListOpen, setIsModalListOpen] = useState(false);
 
   /* States tasks*/

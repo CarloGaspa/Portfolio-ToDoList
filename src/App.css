@@ -25,7 +25,6 @@
 }
 
 .sidebar.shorted ~ .content-area {
-  margin-left: var(--sidebar-collapsed-width);
   width: calc(100% - var(--sidebar-collapsed-width));
   filter: blur(0.5px);
 }
@@ -45,11 +44,6 @@
   padding-top: 2rem;
   padding-bottom: 2rem;
   transition: padding 0.3s ease;
-}
-
-.content-area.sidebar-closed .content-container {
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
 /* Aggiusta il padding per schermi piccoli */
