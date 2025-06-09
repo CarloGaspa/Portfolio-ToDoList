@@ -1,25 +1,67 @@
-/* === Layout principale === */
-#root {
-  margin: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+:root {
+  --sidebar-width: 17rem;
+  --sidebar-collapsed-width: 65px;
+  --transition-time: 0.4s;
+  --transition-easing: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* === Side bar + Content === */
+/* Struttura Principale */
 .main-area {
   display: flex;
-  flex: 1;
-  margin-top: 3rem;
+  margin-top: 3rem; /* Deve corrispondere all'altezza della topbar */
+  height: calc(100vh - 3rem); /* Altezza viewport meno topbar */
+  position: relative;
   width: 100%;
 }
 
-/* === Content === */
+/* Area del Contenuto */
 .content-area {
-  margin-left: 17rem;
-  flex: 1;
-  overflow: auto;
-  border: 1px solid rgb(62, 62, 62);
-  width: calc(100% - 15rem);
+  width: calc(100% - 17rem);
+  height: 100%;
+  overflow-y: auto;
+  transition: margin-left var(--transition-time) var(--transition-easing),
+    width var(--transition-time) var(--transition-easing),
+    filter var(--transition-time) ease;
+}
+
+.sidebar.shorted ~ .content-area {
+  margin-left: var(--sidebar-collapsed-width);
+  width: calc(100% - var(--sidebar-collapsed-width));
+  filter: blur(0.5px);
+}
+
+.content-area:hover {
+  filter: blur(0);
+}
+
+.content-area.sidebar-closed {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Per il contenuto interno */
+.content-container {
+  padding: 0.5rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  transition: padding 0.3s ease;
+}
+
+.content-area.sidebar-closed .content-container {
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/* Aggiusta il padding per schermi piccoli */
+@media (max-width: 768px) {
+  .content-area {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .sidebar-open .content-area {
+    transform: translateX(17rem);
+    width: calc(100% - 17rem);
+    overflow-x: hidden;
+  }
 }

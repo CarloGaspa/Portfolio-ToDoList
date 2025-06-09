@@ -387,7 +387,7 @@ export default function App() {
   return (
     <>
       <TopBar onToggleSidebar={toggleSideBar} />
-      <div className="main-area">
+      <div className={`main-area ${sidebarOpen ? "sidebar-open" : ""}`}>
         <SideBar
           isOpen={sidebarOpen}
           onOpenClose={() => setSidebarOpen(!sidebarOpen)}
@@ -397,7 +397,7 @@ export default function App() {
           onRemoveItem={handleRemoveItem}
           activeContent={activeContent}
         />
-        <div className="content-area">
+        <div className={`content-area ${sidebarOpen ? "" : "sidebar-closed"}`}>
           <Content
             activeContent={sideBarItems.find(
               (item) => item.id === activeContent

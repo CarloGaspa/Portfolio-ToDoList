@@ -22,7 +22,7 @@ export default function SideBar({
   };
 
   return (
-    <aside className={`sidebar ${isOpen ? "open" : ""}`}>
+    <aside className={`sidebar ${isOpen ? "open" : "shorted"}`}>
       <ul>
         {items.map((item) => (
           <li
@@ -31,7 +31,7 @@ export default function SideBar({
             onClick={() => handleSelect(item.id)}
             style={{ "--accent": item.color || "#667eea" }}
           >
-            {/* ICONA */}
+            {/* ICON */}
             <span className="icon" style={{ color: item.color || "#667eea" }}>
               {item.icon && typeof item.icon === "function" ? (
                 <item.icon size={18} />
@@ -39,7 +39,7 @@ export default function SideBar({
                 item.icon
               )}
             </span>
-            {/* TITOLO */}
+            {/* TITLE */}
             {isOpen && <span className="label">{item.name}</span>}
             {isOpen && item.deletable && (
               <button
@@ -55,12 +55,14 @@ export default function SideBar({
           </li>
         ))}
       </ul>
+      {/* ADD LIST */}
       <button onClick={onAddItem} className="add-btn">
         <span className="icon">
           <FiPlus />
         </span>
         {isOpen && <span className="label">Add list</span>}
       </button>
+      {/* SHORTED */}
       <button
         className="openClose-btn"
         onClick={onOpenClose}
