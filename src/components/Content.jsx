@@ -1,7 +1,9 @@
 import "../App.css";
 import "./Content.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FiPlus, FiTrash2, FiCheck, FiCircle, FiStar } from "react-icons/fi";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function Content({
   activeContent,
@@ -16,23 +18,62 @@ export default function Content({
 }) {
   const [newTaskText, setnewTaskText] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(null);
+  const [newTaskTime, setNewTaskTime] = useState(null);
   const [newTaskImportant, setNewTaskImportant] = useState(false);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   const handleAddTask = () => {
     if (newTaskText.trim()) {
+      // Format date consistently (YYYY-MM-DD)
+      const formattedDate = newTaskDate
+        ? new Date(newTaskDate).toISOString().split("T")[0]
+        : null;
+
+      // Format time consistently (HH:MM AM/PM)
+      const formattedTime = newTaskTime
+        ? new Date(newTaskTime).toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          })
+        : null;
+
+      let isImportant = newTaskImportant;
+      let taskDate = formattedDate;
+      if (activeContent.id === "important") {
+        isImportant = true;
+      }
+      if (activeContent.id === "myday") {
+        if (!formattedDate) {
+          const today = new Date();
+          taskDate = today.toISOString().split("T")[0];
+        }
+      }
+
       onAddTask({
         text: newTaskText,
-        important: newTaskImportant,
-        date: newTaskDate ? newTaskDate.toISOString().split("T")[0] : null,
+        important: isImportant,
+        date: taskDate,
+        time: formattedTime,
       });
       setnewTaskText("");
       setNewTaskDate(null);
+      setNewTaskTime(null);
+      setNewTaskImportant(false);
     }
   };
 
   const handleSelect = (taskId) => {
     onSelectTask(taskId);
   };
+
+  const handleGlobalKeyDown = (event) => {
+    if (event.key === "Enter") {
+      handleAddTask();
+    }
+  };
+  document.addEventListener("keydown", handleGlobalKeyDown);
 
   return (
     <div className="content-container">
@@ -57,6 +98,7 @@ export default function Content({
           {activeContent.name}
         </h1>
       </div>
+      {tasks.length === 0 && <p className="no-tasks">No tasks in this list</p>}
 
       {/* LISTA TASK */}
       <ul className="task-list">
@@ -116,30 +158,118 @@ export default function Content({
           </li>
         ))}
       </ul>
-      {tasks.length === 0 && <p className="no-tasks">No tasks in this list</p>}
+
       {/* INPUT */}
       <div className="input-area">
         <div className="input-data">
           <button
             onClick={() => {
-              const today = new Date();
-              today.setHours(0, 0, 0, 0);
-              setNewTaskDate(today);
+              if (newTaskDate && isToday(newTaskDate)) {
+                setNewTaskDate(null);
+              } else {
+                const today = new Date();
+                setNewTaskDate(today);
+              }
             }}
-            className={newTaskDate && isToday(newTaskDate) ? "active" : ""}
+            className={`button-data ${
+              newTaskDate && isToday(newTaskDate) ? "active" : ""
+            }`}
           >
             Today
           </button>
           <button
             onClick={() => {
-              const tomorrow = new Date();
-              tomorrow.setDate(tomorrow.getDate() + 1);
-              tomorrow.setHours(0, 0, 0, 0);
-              setNewTaskDate(tomorrow);
+              if (newTaskDate && isTomorrow(newTaskDate)) {
+                setNewTaskDate(null);
+              } else {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                setNewTaskDate(tomorrow);
+              }
             }}
-            className={newTaskDate && isTomorrow(newTaskDate) ? "active" : ""}
+            className={`button-data ${
+              newTaskDate && isTomorrow(newTaskDate) ? "active" : ""
+            }`}
           >
             Tomorrow
+          </button>
+          <button
+            onClick={() => {
+              if (newTaskDate) {
+                setNewTaskDate(null);
+              } else {
+                setShowDatePicker(!showDatePicker);
+              }
+            }}
+            className={`button-data ${
+              newTaskDate && !isToday(newTaskDate) && !isTomorrow(newTaskDate)
+                ? "active"
+                : ""
+            }`}
+          >
+            Date
+          </button>
+          {showDatePicker && (
+            <>
+              <div
+                className="date-picker-overlay"
+                onClick={() => setShowDatePicker(false)}
+              />
+              <div className="date-picker-container">
+                <DatePicker
+                  selected={newTaskDate || new Date()}
+                  onChange={(date) => {
+                    setNewTaskDate(date);
+                    setShowDatePicker(false);
+                  }}
+                  dateFormat="dd/MM/yyyy"
+                  inline
+                />
+              </div>
+            </>
+          )}
+          <button
+            onClick={() => {
+              if (newTaskTime) {
+                setNewTaskTime(null);
+              } else {
+                setShowTimePicker(!showTimePicker);
+              }
+            }}
+            className={`button-data ${newTaskTime ? "active" : ""}`}
+          >
+            Time
+          </button>
+          {showTimePicker && (
+            <>
+              <div
+                className="time-picker-overlay"
+                onClick={() => setShowTimePicker(false)}
+              />
+              <div className="time-picker-container">
+                <DatePicker
+                  selected={newTaskTime || new Date()}
+                  onChange={(date) => {
+                    setNewTaskTime(date);
+                    setShowTimePicker(false);
+                  }}
+                  showTimeSelect
+                  showTimeSelectOnly
+                  timeIntervals={15}
+                  dateFormat="h:mm aa"
+                  timeCaption="Time"
+                  inline
+                />
+              </div>
+            </>
+          )}
+          <button
+            onClick={() => setNewTaskImportant(!newTaskImportant)}
+            className={`button-important ${
+              newTaskImportant ? "toggle-important" : "toggle-normal"
+            }`}
+          >
+            <FiStar fill={newTaskImportant ? "currentColor" : "none"} />
           </button>
         </div>
         <div className="input-text">
@@ -147,7 +277,6 @@ export default function Content({
             type="text"
             value={newTaskText}
             onChange={(e) => setnewTaskText(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && handleAddTask()}
             placeholder={`Add a task to ${
               activeContent?.name || "this list"
             }...`}

@@ -88,10 +88,10 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
       }}
     >
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm" />
+        <Dialog.Overlay className="fixed inset-0 bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm z-50" />
         <Dialog.Content
           style={{ backgroundColor: "rgb(37, 35, 33)" }}
-          className="fixed top-1/2 left-1/2 p-8 rounded-2xl shadow-2xl transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md text-gray-100 font-sans"
+          className="fixed top-1/2 left-1/2 p-8 rounded-2xl shadow-2xl transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md text-gray-100 font-sans z-50"
         >
           <div className="flex items-center justify-between mb-3">
             <Dialog.Close asChild>

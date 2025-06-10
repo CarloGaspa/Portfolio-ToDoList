@@ -354,7 +354,7 @@ export default function App() {
             : activeContent,
         important: newTask.important || false,
         date: newTask.date || null,
-        time: null,
+        time: newTask.time || null,
       },
     ]);
   };
