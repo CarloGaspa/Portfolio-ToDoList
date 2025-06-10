@@ -14,14 +14,19 @@ export default function Content({
   currentList,
   activeTask,
 }) {
-  const [newTasktext, setNewTasktext] = useState("");
+  const [newTaskText, setnewTaskText] = useState("");
+  const [newTaskDate, setNewTaskDate] = useState(null);
+  const [newTaskImportant, setNewTaskImportant] = useState(false);
 
   const handleAddTask = () => {
-    if (newTasktext.trim()) {
+    if (newTaskText.trim()) {
       onAddTask({
-        text: newTasktext,
+        text: newTaskText,
+        important: newTaskImportant,
+        date: newTaskDate ? newTaskDate.toISOString().split("T")[0] : null,
       });
-      setNewTasktext("");
+      setnewTaskText("");
+      setNewTaskDate(null);
     }
   };
 
@@ -63,8 +68,8 @@ export default function Content({
               ${task.important ? "important" : ""}
               ${task.id === activeTask ? "selected" : ""}
             `}
-            onClick={() => handleSelect(task.id)}
           >
+            {/* CONTROL */}
             <div className="task-controls">
               <button
                 onClick={() => onToggleComplete(task.id)}
@@ -76,7 +81,11 @@ export default function Content({
                 {task.completed ? <FiCheck /> : <FiCircle />}
               </button>
             </div>
-            <div className="task-text-container">
+            {/* CONTENT */}
+            <div
+              className="task-text-container"
+              onClick={() => handleSelect(task.id)}
+            >
               <span className="task-text">{task.text}</span>
               <span
                 className="task-date"
@@ -87,6 +96,7 @@ export default function Content({
                 {formatTaskDateTime(task.date, task.time)}
               </span>
             </div>
+            {/* OTHER */}
             <button
               onClick={() => onToggleImportant(task.id)}
               className={task.important ? "toggle-important" : "toggle-normal"}
@@ -107,14 +117,42 @@ export default function Content({
         ))}
       </ul>
       {tasks.length === 0 && <p className="no-tasks">No tasks in this list</p>}
+      {/* INPUT */}
       <div className="input-area">
-        <input
-          type="text"
-          value={newTasktext}
-          onChange={(e) => setNewTasktext(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleAddTask()}
-          placeholder={`Add a task to ${activeContent?.name || "this list"}...`}
-        />
+        <div className="input-data">
+          <button
+            onClick={() => {
+              const today = new Date();
+              today.setHours(0, 0, 0, 0);
+              setNewTaskDate(today);
+            }}
+            className={newTaskDate && isToday(newTaskDate) ? "active" : ""}
+          >
+            Today
+          </button>
+          <button
+            onClick={() => {
+              const tomorrow = new Date();
+              tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(0, 0, 0, 0);
+              setNewTaskDate(tomorrow);
+            }}
+            className={newTaskDate && isTomorrow(newTaskDate) ? "active" : ""}
+          >
+            Tomorrow
+          </button>
+        </div>
+        <div className="input-text">
+          <input
+            type="text"
+            value={newTaskText}
+            onChange={(e) => setnewTaskText(e.target.value)}
+            onKeyPress={(e) => e.key === "Enter" && handleAddTask()}
+            placeholder={`Add a task to ${
+              activeContent?.name || "this list"
+            }...`}
+          />
+        </div>
       </div>
     </div>
   );
@@ -167,4 +205,23 @@ function formatTaskDateTime(dateStr, timeStr) {
   const timePart = timeStr ? `, ${timeStr}` : "";
 
   return datePart + timePart;
+}
+
+function isToday(date) {
+  const today = new Date();
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
+}
+
+function isTomorrow(date) {
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  return (
+    date.getDate() === tomorrow.getDate() &&
+    date.getMonth() === tomorrow.getMonth() &&
+    date.getFullYear() === tomorrow.getFullYear()
+  );
 }

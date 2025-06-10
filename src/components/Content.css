@@ -170,16 +170,54 @@ a {
   box-shadow: 0 0 0 2px var(--accent);
 }
 
-.input-area {
-  display: flex;
-  justify-content: center;
-}
-
 .content-container input[type="text"] {
-  width: 80%;
+  width: 100%;
   padding: 10px 15px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 1rem;
   margin-top: auto;
+}
+
+.input-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100px;
+  background-color: rgb(50, 49, 48);
+  border-radius: 10px;
+  width: 80%;
+  margin: auto;
+}
+
+.input-data,
+.input-text {
+  width: 100%;
+  display: flex;
+  margin-top: 6px;
+}
+.input-data {
+  gap: 5px;
+  margin-left: 10px;
+}
+
+.input-data button {
+  margin: 0px;
+  height: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: rgb(37, 36, 35);
+  color: rgb(150, 148, 145);
+  border: 0;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.input-data button:hover {
+  color: white;
+}
+
+.input-data button.active {
+  background-color: #667eea;
+  color: white;
 }

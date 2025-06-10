@@ -352,8 +352,9 @@ export default function App() {
           activeItem?.deletable === false && activeContent !== LIST_IDS.INBOX
             ? LIST_IDS.INBOX
             : activeContent,
-        important: false,
-        date: null,
+        important: newTask.important || false,
+        date: newTask.date || null,
+        time: null,
       },
     ]);
   };
