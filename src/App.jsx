@@ -14,6 +14,7 @@ import {
   FiBriefcase,
   FiHome,
   FiShoppingCart,
+  FiTrash,
 } from "react-icons/fi";
 
 const LIST_IDS = {
@@ -21,6 +22,7 @@ const LIST_IDS = {
   MY_DAY: "myday",
   IMPORTANT: "important",
   PLANNED: "planned",
+  COMPLETED: "completed",
 };
 
 const DEFAULT_COLORS = [
@@ -28,6 +30,7 @@ const DEFAULT_COLORS = [
   "#48bb78", // My Day (verde)
   "#ed8936", // Important (arancione)
   "#9f7aea", // Planned (viola)
+  "#A9A9A9", // Completed (grigio)
   "#4299e1", // Work (azzurro)
   "#e53e3e", // Home (rosso)
   "#38b2ac", // Groceries (turchese)
@@ -63,25 +66,32 @@ const sideBarInitialState = [
     color: DEFAULT_COLORS[3],
   },
   {
+    id: LIST_IDS.COMPLETED,
+    name: "Completed",
+    icon: <FiTrash />,
+    deletable: false,
+    color: DEFAULT_COLORS[4],
+  },
+  {
     id: "work",
     name: "Work",
     icon: <FiBriefcase />,
     deletable: true,
-    color: DEFAULT_COLORS[4],
+    color: DEFAULT_COLORS[5],
   },
   {
     id: "home",
     name: "Home",
     icon: <FiHome />,
     deletable: true,
-    color: DEFAULT_COLORS[5],
+    color: DEFAULT_COLORS[6],
   },
   {
     id: "groceries",
     name: "Groceries",
     icon: <FiShoppingCart />,
     deletable: true,
-    color: DEFAULT_COLORS[6],
+    color: DEFAULT_COLORS[7],
   },
 ];
 
@@ -331,6 +341,8 @@ export default function App() {
         taskDate.setHours(0, 0, 0, 0);
         return taskDate >= tomorrowStart;
       },
+
+      [LIST_IDS.COMPLETED]: (task) => task.completed,
 
       default: (task) => !task.completed && task.list === activeContent,
     };
