@@ -28,6 +28,7 @@
   transition: transform var(--transition-time) var(--transition-easing),
     width var(--transition-time) var(--transition-easing);
   will-change: transform, width;
+  flex: none; /* Quando vuoi evitare che un elemento si schiacci in contenitori stretti */
 }
 
 .sidebar::-webkit-scrollbar {

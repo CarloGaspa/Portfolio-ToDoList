@@ -106,6 +106,9 @@ export default function DetailsBar({
             <FiStar size={20} fill={task.important ? "currentColor" : "none"} />
           </button>
         </div>
+        <button className="details-button">Add to my day</button>
+        <button className="details-button">Add due Date</button>
+        <button className="details-button">Add due Time</button>
       </div>
 
       <div className="detail-bottom">

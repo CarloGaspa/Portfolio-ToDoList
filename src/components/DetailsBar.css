@@ -1,6 +1,6 @@
 .detailsBar {
-  position: relative;
-  width: 90%;
+  width: 90vw;
+  max-width: 600px;
   background-color: rgb(37, 36, 35);
   color: #f3f4f6;
   border-left: 1px solid rgb(62, 62, 62);
@@ -26,12 +26,16 @@
   flex: 1;
 }
 
-.details-header {
-  background-color: rgba(0, 0, 0, 0.2);
-  padding: 12px;
+.details-header,
+.details-date,
+.details-button {
+  padding: 0;
   display: flex;
   align-items: center;
   width: 100%;
+  height: 60px;
+  border-bottom: 1px solid rgb(85, 90, 88);
+  background-color: transparent;
 }
 
 .details-task-text {
@@ -39,6 +43,8 @@
   padding: 4px 8px;
   margin: 0 8px;
   background-color: transparent;
+  font-weight: 600;
+  font-size: x-large;
 }
 
 .details-task-input {
