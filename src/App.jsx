@@ -396,6 +396,12 @@ export default function App() {
     setTaskDetailsOpen(true);
   };
 
+  const handleEditTask = (id, newText) => {
+    setTasks(
+      tasks.map((task) => (task.id === id ? { ...task, text: newText } : task))
+    );
+  };
+
   /* Return */
   return (
     <>
@@ -428,7 +434,11 @@ export default function App() {
         <DetailsBar
           isOpen={taskDetailsOpen}
           onClose={() => setTaskDetailsOpen(false)}
-          item={tasks.find((task) => task.id === activeTask)}
+          task={tasks.find((task) => task.id === activeTask)}
+          onRemoveTask={handleRemoveTask}
+          onToggleComplete={handleToggleComplete}
+          onToggleImportant={handleToggleImportant}
+          onEditTask={handleEditTask}
         />
       </div>
       <ModalList

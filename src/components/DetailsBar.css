@@ -1,19 +1,18 @@
 .detailsBar {
   position: relative;
-  width: 22rem;
+  width: 90%;
   background-color: rgb(37, 36, 35);
   color: #f3f4f6;
   border-left: 1px solid rgb(62, 62, 62);
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
   padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
 }
 
-.close-btn {
-  position: absolute;
-  top: 0.2rem;
-  right: 0;
-  background: transparent;
-  border: none;
+.detail-close-btn,
+.detail-delete-btn {
   color: #f3f4f6;
   font-size: 1.5rem;
   cursor: pointer;
@@ -22,6 +21,54 @@
 }
 
 .details-content {
-  margin-top: 30px;
+  margin-top: 10px;
   padding: 0.3rem;
+  flex: 1;
+}
+
+.details-header {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.details-task-text {
+  flex-grow: 1;
+  padding: 4px 8px;
+  margin: 0 8px;
+  background-color: transparent;
+}
+
+.details-task-input {
+  flex-grow: 1;
+  padding: 4px 8px;
+  margin: 0 8px;
+  font-size: inherit;
+  font-family: inherit;
+  outline: none;
+  background-color: transparent;
+}
+
+.detail-bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem;
+  width: 100%;
+  bottom: 15px;
+}
+
+.detail-bottom button {
+  outline: none;
+  border: 0;
+}
+
+.detail-close-btn:hover,
+.detail-delete-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.detail-delete-btn:hover {
+  color: #ff6b6b;
 }
