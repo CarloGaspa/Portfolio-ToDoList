@@ -1,6 +1,15 @@
 import "../App.css";
 import "./DetailsBar.css";
-import { FiX, FiTrash2, FiCheck, FiCircle, FiStar } from "react-icons/fi";
+import {
+  FiX,
+  FiTrash2,
+  FiCheck,
+  FiCircle,
+  FiStar,
+  FiSun,
+  FiCalendar,
+  FiClock,
+} from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 
 export default function DetailsBar({
@@ -15,6 +24,8 @@ export default function DetailsBar({
   const [editingText, setEditingText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const inputRef = useRef(null);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   useEffect(() => {
     if (task) {
@@ -106,9 +117,77 @@ export default function DetailsBar({
             <FiStar size={20} fill={task.important ? "currentColor" : "none"} />
           </button>
         </div>
-        <button className="details-button">Add to my day</button>
-        <button className="details-button">Add due Date</button>
-        <button className="details-button">Add due Time</button>
+
+        {/* DATE */}
+        {!task.date && (
+          <button className="details-button">
+            <FiCalendar
+              size={20}
+              className="details-icon"
+              onClick={() => {
+                if (newTaskDate) {
+                  setNewTaskDate(null);
+                } else {
+                  setShowDatePicker(!showDatePicker);
+                }
+              }}
+            ></FiCalendar>
+            Add due Date
+          </button>
+        )}
+        {task.date && (
+          <button
+            className="details-button button-show"
+            onClick={() => {
+              if (newTaskDate) {
+                setNewTaskDate(null);
+              } else {
+                setShowDatePicker(!showDatePicker);
+              }
+            }}
+          >
+            <FiCalendar size={20} className="details-icon"></FiCalendar>
+            {task.date}
+          </button>
+        )}
+        {showDatePicker && (
+          <>
+            <div
+              className="date-picker-overlay"
+              onClick={() => setShowDatePicker(false)}
+            />
+            <div className="date-picker-container">
+              <DatePicker
+                selected={newTaskDate || new Date()}
+                onChange={(date) => {
+                  setNewTaskDate(date);
+                  setShowDatePicker(false);
+                }}
+                dateFormat="dd/MM/yyyy"
+                inline
+              />
+            </div>
+          </>
+        )}
+
+        {/* TIME */}
+        {!task.time && (
+          <button className="details-button">
+            <FiClock size={20} className="details-icon"></FiClock>
+            Add due Time
+          </button>
+        )}
+        {task.time && (
+          <button className="details-button button-show">
+            <FiClock size={20} className="details-icon"></FiClock>
+            {task.time}
+          </button>
+        )}
+
+        <button className="details-button">
+          <FiSun size={20} className="details-icon"></FiSun>
+          Add to my day
+        </button>
       </div>
 
       <div className="detail-bottom">
