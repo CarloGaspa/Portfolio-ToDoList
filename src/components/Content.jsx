@@ -147,7 +147,7 @@ export default function Content({
               }
             >
               <FiStar
-                style={{ marginRight: "px" }}
+                style={{ marginRight: "10px" }}
                 fill={task.important ? "currentColor" : "none"}
                 size={20}
               />

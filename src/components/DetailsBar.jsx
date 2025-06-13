@@ -181,7 +181,11 @@ export default function DetailsBar({
               task.important ? "Mark as not important" : "Mark as important"
             }
           >
-            <FiStar size={20} fill={task.important ? "currentColor" : "none"} />
+            <FiStar
+              style={{ marginRight: "10px" }}
+              fill={task.important ? "currentColor" : "none"}
+              size={20}
+            />
           </button>
         </div>
 
