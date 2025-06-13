@@ -146,14 +146,11 @@ export default function Content({
                 task.important ? "Mark as not important" : "Mark as important"
               }
             >
-              <FiStar fill={task.important ? "currentColor" : "none"} />
-            </button>
-            <button
-              onClick={() => onRemoveTask(task.id)}
-              className="delete-task"
-              aria-label="Delete task"
-            >
-              <FiTrash2 size={14} />
+              <FiStar
+                style={{ marginRight: "px" }}
+                fill={task.important ? "currentColor" : "none"}
+                size={20}
+              />
             </button>
           </li>
         ))}

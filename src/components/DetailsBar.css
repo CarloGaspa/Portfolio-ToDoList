@@ -1,4 +1,4 @@
-/* MAIN */
+/* MAIN CONTAINER */
 .detailsBar {
   width: 90vw;
   max-width: 600px;
@@ -18,7 +18,12 @@
   flex: 1;
 }
 
-/* HEADER */
+/* HEADER SECTION */
+.details-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgb(85, 90, 88);
+}
+
 .details-task-text {
   flex-grow: 1;
   padding: 4px 8px;
@@ -38,10 +43,8 @@
   background-color: transparent;
 }
 
-/* MIDDLE */
-.details-header,
-.details-date,
-.details-button {
+/* DETAIL SECTIONS */
+.details-section {
   padding: 0;
   display: flex;
   align-items: center;
@@ -50,36 +53,168 @@
   border-bottom: 1px solid rgb(85, 90, 88);
   background-color: transparent;
   border-radius: 0px;
+  transition: background-color 0.2s ease;
 }
 
-.details-date,
-.details-button {
-  color: rgb(100, 105, 103);
+.details-section button {
+  background-color: transparent;
+  border: none;
+  color: rgb(180, 185, 183);
+  font-size: 14px;
   font-weight: 400;
+  height: 100%;
+  text-align: left;
+  flex-grow: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: 0;
 }
 
-.button-show {
+.details-section:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #539bf5;
+}
+
+/* Edit button */
+.edit-button {
+  padding-left: 0;
+}
+
+.edit-button:hover {
   color: white;
 }
 
-.details-date:hover,
-.details-button:hover {
-  color: rgb(155, 160, 158);
-  font-weight: 400;
+.edit-button:hover span {
+  color: #539bf5;
+  transition: color 0.2s ease;
 }
 
-.button-show:hover {
-  color: cadetblue;
+/* Remove button */
+.details-remove {
+  color: rgb(150, 155, 153);
+  cursor: pointer;
+  padding: 5px;
+  padding-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: right;
 }
 
-.details-date:focus,
-.details-button:focus {
-  outline: none;
-  box-shadow: none;
+.details-remove:hover {
+  color: #ff6b6b;
 }
 
+/* DateTime Container */
+.date-time-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.date-time-container span {
+  color: white;
+  font-size: 14px;
+}
+
+/* DATE PICKER STYLES */
+.date-picker-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.date-picker-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  background-color: #2d333b;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 15px;
+}
+
+/* Custom react-datepicker styles */
+.react-datepicker {
+  background-color: #2d333b;
+  border: 1px solid #444c56;
+  font-family: inherit;
+}
+
+.react-datepicker__header {
+  background-color: #2d333b;
+  border-bottom: 1px solid #444c56;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: #adbac7;
+}
+
+.react-datepicker__day {
+  color: #adbac7;
+}
+
+.react-datepicker__day:hover {
+  background-color: #444c56;
+  color: #2d333b;
+  font-weight: 1000;
+}
+
+.react-datepicker__day--selected {
+  background-color: #539bf5;
+  color: white;
+}
+
+.react-datepicker__day--today {
+  font-weight: bold;
+}
+
+.react-datepicker__navigation-icon::before {
+  border-color: #adbac7;
+}
+
+.react-datepicker__time-container {
+  width: 100%;
+}
+
+.react-datepicker-time__header {
+  color: #adbac7;
+}
+
+.react-datepicker__time-box {
+  width: 100% !important;
+}
+
+.react-datepicker__time-list-item {
+  color: black;
+}
+
+.react-datepicker__time-list-item:hover {
+  background-color: #444c56;
+  color: black;
+  font-weight: 700;
+}
+
+.react-datepicker__time-list-item--selected {
+  background-color: #539bf5;
+  color: white;
+}
+
+/* ICON STYLES */
 .details-icon {
-  margin: 15px;
+  margin: 0 15px;
+  color: rgb(155, 160, 158);
+  flex-shrink: 0;
 }
 
 /* BOTTOM */

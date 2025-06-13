@@ -396,9 +396,9 @@ export default function App() {
     setTaskDetailsOpen(true);
   };
 
-  const handleEditTask = (id, newText) => {
+  const handleUpdateTask = (id, updates) => {
     setTasks(
-      tasks.map((task) => (task.id === id ? { ...task, text: newText } : task))
+      tasks.map((task) => (task.id === id ? { ...task, ...updates } : task))
     );
   };
 
@@ -438,7 +438,7 @@ export default function App() {
           onRemoveTask={handleRemoveTask}
           onToggleComplete={handleToggleComplete}
           onToggleImportant={handleToggleImportant}
-          onEditTask={handleEditTask}
+          onUpdateTask={handleUpdateTask}
         />
       </div>
       <ModalList

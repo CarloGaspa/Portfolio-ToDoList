@@ -71,7 +71,7 @@
   font-size: 1.2rem;
 }
 
-.toggle-normal,
+.toggle-normal:hover,
 .toggle-complete:hover,
 .toggle-important:hover {
   opacity: 0.8;
