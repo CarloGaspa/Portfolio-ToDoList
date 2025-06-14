@@ -132,7 +132,9 @@ export default function Content({
               <span
                 className="task-date"
                 style={{
-                  color: isPastDate(task.date) ? "rgb(255,56,55)" : "#888",
+                  color: isPastDate(task.date, task.time)
+                    ? "rgb(255,56,55)"
+                    : "#888",
                 }}
               >
                 {formatTaskDateTime(task.date, task.time)}
@@ -156,7 +158,10 @@ export default function Content({
         ))}
       </ul>
 
-      {/* INPUT */}
+      {/* ---------------------------------------------------
+                              INPUT
+      --------------------------------------------------- */}
+
       <div className="input-area">
         <div className="input-data">
           <button
@@ -284,17 +289,23 @@ export default function Content({
   );
 }
 
-function isPastDate(dateStr) {
-  if (!dateStr) return false;
-
-  const taskDate = new Date(dateStr);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const taskDateOnly = new Date(taskDate);
-  taskDateOnly.setHours(0, 0, 0, 0);
-
-  return taskDateOnly < today;
+function isPastDate(dateStr, timeStr) {
+  if (!dateStr && !timeStr) return false;
+  const now = new Date();
+  let taskDate;
+  if (dateStr && timeStr) {
+    taskDate = new Date(`${dateStr}T${timeStr}`);
+  } else if (dateStr) {
+    taskDate = new Date(dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    taskDate.setHours(0, 0, 0, 0);
+    return taskDate < today;
+  } else {
+    const todayStr = now.toISOString().split("T")[0];
+    taskDate = new Date(`${todayStr}T${timeStr}`);
+  }
+  return taskDate < now;
 }
 
 function formatTaskDateTime(dateStr, timeStr) {

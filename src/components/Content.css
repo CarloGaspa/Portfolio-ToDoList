@@ -44,10 +44,9 @@
 
 .task-list li {
   display: flex;
-  align-items: center;
-  padding: 10px 0;
   border-bottom: 1px solid rgb(54, 57, 56);
   gap: 8px;
+  min-height: 50px;
 }
 
 .task-list li.completed .task-text {
@@ -83,12 +82,6 @@
 
 .toggle-important {
   color: #d35400;
-}
-
-.task-text {
-  flex-grow: 1;
-  word-break: break-word;
-  padding-right: 10px;
 }
 
 .delete-task {
@@ -135,18 +128,23 @@
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+  cursor: pointer;
+  justify-content: center;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .task-text {
   font-size: 1rem;
   padding-right: 10px;
   word-break: break-word;
+  line-height: 1.4;
 }
 
 .task-date {
   font-size: 0.8rem;
   color: #888;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
 .task-list .selected {

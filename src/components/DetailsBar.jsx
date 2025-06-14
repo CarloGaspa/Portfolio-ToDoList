@@ -9,6 +9,7 @@ import {
   FiSun,
   FiCalendar,
   FiClock,
+  FiEdit3,
 } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
@@ -30,6 +31,8 @@ export default function DetailsBar({
   const [showTimePicker, setShowTimePicker] = useState(false);
   const [newTaskDate, setNewTaskDate] = useState(null);
   const [newTaskTime, setNewTaskTime] = useState(null);
+  const [isEditingNote, setIsEditingNote] = useState(false);
+  const [currentNote, setCurrentNote] = useState("");
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -207,7 +210,12 @@ export default function DetailsBar({
               >
                 <span
                   style={{
-                    color: isPastDate(task.date) ? "rgb(255,56,55)" : "",
+                    color: isPastDate(task.date, task.time)
+                      ? "rgb(255,56,55)"
+                      : "",
+                    fontWeight: isPastDate(task.date, task.time)
+                      ? "bold"
+                      : "normal",
                   }}
                 >
                   {formatTaskDate(task.date)}
@@ -252,7 +260,18 @@ export default function DetailsBar({
                 className="edit-button"
                 onClick={() => setShowTimePicker(true)}
               >
-                <span>{task.time}</span>
+                <span
+                  style={{
+                    color: isPastDate(task.date, task.time)
+                      ? "rgb(255,56,55)"
+                      : "",
+                    fontWeight: isPastDate(task.date, task.time)
+                      ? "bold"
+                      : "normal",
+                  }}
+                >
+                  {task.time}
+                </span>
               </button>
               <button className="details-remove" onClick={handleRemoveTime}>
                 <FiX size={16} />
@@ -285,11 +304,39 @@ export default function DetailsBar({
         {/* ADD TO MY DAY */}
         <div className="details-section">
           <FiSun size={20} className="details-icon" />
-          <button className="edit-button" onClick={handleAddToMyDay}>
-            Add to My Day
-          </button>
+          {task.date && isToday(new Date(task.date)) ? (
+            <button className="edit-button" onClick={handleRemoveDate}>
+              Remove from My Day
+            </button>
+          ) : (
+            <button className="edit-button" onClick={handleAddToMyDay}>
+              Add to My Day
+            </button>
+          )}
+        </div>
+
+        {/* NOTE */}
+        <div className="details-section-note">
+          <FiEdit3 size={20} className="details-icon" />{" "}
+          <textarea
+            value={isEditingNote ? currentNote : task.note || ""}
+            onChange={(e) => setCurrentNote(e.target.value)}
+            onBlur={() => {
+              onUpdateTask(task.id, { note: currentNote });
+              setIsEditingNote(false);
+            }}
+            onFocus={() => {
+              setCurrentNote(task.note || "");
+              setIsEditingNote(true);
+            }}
+            placeholder="Add notes..."
+            className="details-note-input"
+            rows={4}
+          />
         </div>
       </div>
+
+      {/* ------------------------------------------------------------ */}
 
       <div className="detail-bottom">
         {/* Close bar*/}
@@ -346,15 +393,30 @@ function formatTaskDate(dateStr) {
   return datePart;
 }
 
-function isPastDate(dateStr) {
-  if (!dateStr) return false;
+function isPastDate(dateStr, timeStr) {
+  if (!dateStr && !timeStr) return false;
+  const now = new Date();
+  let taskDate;
+  if (dateStr && timeStr) {
+    taskDate = new Date(`${dateStr}T${timeStr}`);
+  } else if (dateStr) {
+    taskDate = new Date(dateStr);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    taskDate.setHours(0, 0, 0, 0);
+    return taskDate < today;
+  } else {
+    const todayStr = now.toISOString().split("T")[0];
+    taskDate = new Date(`${todayStr}T${timeStr}`);
+  }
+  return taskDate < now;
+}
 
-  const taskDate = new Date(dateStr);
+function isToday(date) {
   const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  const taskDateOnly = new Date(taskDate);
-  taskDateOnly.setHours(0, 0, 0, 0);
-
-  return taskDateOnly < today;
+  return (
+    date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()
+  );
 }

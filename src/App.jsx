@@ -104,6 +104,7 @@ const tasksInitialState = [
     important: true,
     date: "2027-06-03",
     time: "15:00",
+    note: "Remember to include the analytics section and review with marketing team",
   },
   {
     id: "task-2",
@@ -113,6 +114,7 @@ const tasksInitialState = [
     important: false,
     date: "2025-06-03",
     time: "",
+    note: "Prepare Q3 targets presentation and bring laptop",
   },
   {
     id: "task-3",
@@ -122,6 +124,7 @@ const tasksInitialState = [
     important: false,
     date: "",
     time: "",
+    note: "Focus on kitchen and bathroom, need to buy cleaning supplies",
   },
   {
     id: "task-4",
@@ -131,6 +134,7 @@ const tasksInitialState = [
     important: true,
     date: "2025-06-20",
     time: "09:00",
+    note: "Get 2 liters of organic whole milk",
   },
   {
     id: "task-5",
@@ -140,6 +144,7 @@ const tasksInitialState = [
     important: false,
     date: "",
     time: "",
+    note: "Electricity and internet bills due this week",
   },
   {
     id: "task-6",
@@ -149,6 +154,7 @@ const tasksInitialState = [
     important: true,
     date: "2025-06-04",
     time: "",
+    note: "Include latest sales figures and client testimonials",
   },
   {
     id: "task-7",
@@ -158,6 +164,7 @@ const tasksInitialState = [
     important: false,
     date: "2025-06-20",
     time: "18:00",
+    note: "Leg day - squats and deadlifts",
   },
   {
     id: "task-8",
@@ -167,6 +174,7 @@ const tasksInitialState = [
     important: false,
     date: "2025-06-20",
     time: "",
+    note: "'Atomic Habits' - finish chapter 5",
   },
   {
     id: "task-9",
@@ -176,6 +184,7 @@ const tasksInitialState = [
     important: true,
     date: "",
     time: "",
+    note: "Ask about her doctor appointment and vacation plans",
   },
   {
     id: "task-10",
@@ -185,6 +194,7 @@ const tasksInitialState = [
     important: false,
     date: "2025-06-20",
     time: "10:00",
+    note: "File documents, clean desk, order new stationery",
   },
   {
     id: "task-11",
@@ -194,6 +204,7 @@ const tasksInitialState = [
     important: true,
     date: "2025-06-05",
     time: "16:30",
+    note: "List: Dad - book, Mom - scarf, Sister - headphones",
   },
   {
     id: "task-12",
@@ -203,6 +214,7 @@ const tasksInitialState = [
     important: false,
     date: "",
     time: "",
+    note: "Research flights to Italy for August, check Airbnb options",
   },
   {
     id: "task-13",
@@ -212,6 +224,7 @@ const tasksInitialState = [
     important: true,
     date: "2025-06-20",
     time: "13:45",
+    note: "Need to buy new washer and plumber's tape",
   },
   {
     id: "task-14",
@@ -221,6 +234,7 @@ const tasksInitialState = [
     important: false,
     date: "2024-11-15",
     time: "",
+    note: "Legal contracts for client XYZ, highlight unclear clauses",
   },
   {
     id: "task-15",
@@ -230,6 +244,7 @@ const tasksInitialState = [
     important: false,
     date: "",
     time: "",
+    note: "Use Headspace app - anxiety reduction program",
   },
   {
     id: "task-16",
@@ -239,6 +254,7 @@ const tasksInitialState = [
     important: true,
     date: "2023-02-20",
     time: "09:00",
+    note: "Add latest project and update skills section",
   },
   {
     id: "task-17",
@@ -248,6 +264,7 @@ const tasksInitialState = [
     important: false,
     date: "2025-06-20",
     time: "08:00",
+    note: "Fern needs extra water, cactus only small amount",
   },
   {
     id: "task-18",
@@ -257,6 +274,7 @@ const tasksInitialState = [
     important: false,
     date: "2025-06-20",
     time: "",
+    note: "Thai green curry - need coconut milk and lemongrass",
   },
   {
     id: "task-19",
@@ -266,6 +284,7 @@ const tasksInitialState = [
     important: true,
     date: "2026-03-15",
     time: "17:00",
+    note: "Use external drive and cloud storage, include documents folder",
   },
   {
     id: "task-20",
@@ -275,6 +294,7 @@ const tasksInitialState = [
     important: false,
     date: "2023-04-10",
     time: "",
+    note: "Adobe Creative Cloud - check for student discount",
   },
 ];
 
