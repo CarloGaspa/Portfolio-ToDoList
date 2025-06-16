@@ -194,25 +194,6 @@ a {
   box-shadow: 0 0 0 2px var(--accent);
 }
 
-/* === Responsive Design === */
-@media (max-width: 768px) {
-  .sidebar {
-    left: -100%;
-  }
-}
-
-/* === Content Shift for Desktop === */
-@media (min-width: 769px) {
-  .content {
-    margin-left: 17rem;
-    transition: margin-left 0.3s ease-in-out;
-  }
-
-  .sidebar-collapsed + .content {
-    margin-left: 0;
-  }
-}
-
 /* Animazione per il testo quando appare */
 .sidebar.open .label {
   opacity: 0;

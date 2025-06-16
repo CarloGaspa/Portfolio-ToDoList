@@ -17,6 +17,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { BiLeftArrow } from "react-icons/bi";
 
 export default function DetailsBar({
+  isMobile,
   isOpen,
   task,
   onClose,
@@ -136,7 +137,10 @@ export default function DetailsBar({
   };
 
   return (
-    <aside className={`detailsBar ${isOpen ? "open" : ""}`}>
+    <aside
+      className={`detailsBar ${isOpen ? "open" : ""} 
+      ${isMobile ? "mobile" : ""}`}
+    >
       <div className="details-content">
         <div className="details-header">
           {/* Checkbox */}

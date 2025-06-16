@@ -1,3 +1,4 @@
+import { TheaterIcon } from "lucide-react";
 import "../App.css";
 import "./SideBar.css";
 import { useState, useEffect } from "react";
@@ -10,6 +11,7 @@ import {
 } from "react-icons/fi";
 
 export default function SideBar({
+  isMobile,
   items = [],
   isOpen,
   onSelectItem,
@@ -17,6 +19,7 @@ export default function SideBar({
   onRemoveItem,
   activeContent,
   onOpenClose,
+  onCloseDetail,
 }) {
   const handleSelect = (id) => {
     if (onSelectItem) onSelectItem(id);
@@ -34,6 +37,10 @@ export default function SideBar({
     }
   }, [isOpen]);
 
+  if (isMobile && isOpen) {
+    onOpenClose();
+  }
+
   return (
     <aside className={`sidebar ${isOpen ? "open" : "shorted"}`}>
       <ul>
@@ -41,7 +48,10 @@ export default function SideBar({
           <li
             key={item.id}
             className={activeContent === item.id ? "selected" : ""}
-            onClick={() => handleSelect(item.id)}
+            onClick={() => {
+              onCloseDetail();
+              handleSelect(item.id);
+            }}
             style={{ "--accent": item.color || "#667eea" }}
           >
             {/* ICON */}
@@ -73,7 +83,12 @@ export default function SideBar({
         ))}
       </ul>
       {/* ADD LIST */}
-      <button onClick={onAddItem} className="add-btn">
+      <button
+        onClick={() => {
+          onCloseDetail(), onAddItem();
+        }}
+        className="add-btn"
+      >
         <span className="icon">
           <FiPlus />
         </span>
@@ -82,13 +97,15 @@ export default function SideBar({
         )}
       </button>
       {/* SHORTED */}
-      <button
-        className="openClose-btn"
-        onClick={onOpenClose}
-        aria-label="Open Close sidebar"
-      >
-        {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
-      </button>
+      {!isMobile && (
+        <button
+          className="openClose-btn"
+          onClick={onOpenClose}
+          aria-label="Open Close sidebar"
+        >
+          {isOpen ? <FiChevronLeft size={20} /> : <FiChevronRight size={20} />}
+        </button>
+      )}
     </aside>
   );
 }

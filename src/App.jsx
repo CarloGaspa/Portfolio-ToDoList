@@ -299,6 +299,9 @@ const tasksInitialState = [
 ];
 
 export default function App() {
+  /* State device  */
+  const [isMobile, setIsMobile] = useState(true);
+
   /* States lists*/
   const [sideBarItems, setSideBarItems] = useState(sideBarInitialState);
   const [activeContent, setActiveContent] = useState(LIST_IDS.INBOX);
@@ -428,6 +431,7 @@ export default function App() {
       <TopBar onToggleSidebar={toggleSideBar} />
       <div className={`main-area ${sidebarOpen ? "sidebar-open" : ""}`}>
         <SideBar
+          isMobile={isMobile}
           isOpen={sidebarOpen}
           onOpenClose={() => setSidebarOpen(!sidebarOpen)}
           items={sideBarItems}
@@ -435,9 +439,15 @@ export default function App() {
           onAddItem={() => setIsModalListOpen(true)} // apri pop-up
           onRemoveItem={handleRemoveItem}
           activeContent={activeContent}
+          onCloseDetail={() => setTaskDetailsOpen(false)}
         />
-        <div className={`content-area ${sidebarOpen ? "" : "sidebar-closed"}`}>
+        <div
+          className={`content-area ${sidebarOpen ? "" : "sidebar-closed"} ${
+            isMobile && taskDetailsOpen ? "content-area-mobile" : ""
+          }`}
+        >
           <Content
+            isMobile={isMobile}
             activeContent={sideBarItems.find(
               (item) => item.id === activeContent
             )}
@@ -449,9 +459,11 @@ export default function App() {
             onToggleImportant={handleToggleImportant}
             currentList={activeContent}
             activeTask={activeTask}
+            detailsBarOpen={taskDetailsOpen}
           />
         </div>
         <DetailsBar
+          isMobile={isMobile}
           isOpen={taskDetailsOpen}
           onClose={() => setTaskDetailsOpen(false)}
           task={tasks.find((task) => task.id === activeTask)}

@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Content({
+  isMobile,
   activeContent,
   tasks = [],
   onSelectTask,
@@ -15,6 +16,7 @@ export default function Content({
   onToggleImportant,
   currentList,
   activeTask,
+  detailsBarOpen,
 }) {
   const [newTaskText, setnewTaskText] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(null);
@@ -75,217 +77,241 @@ export default function Content({
   };
   document.addEventListener("keydown", handleGlobalKeyDown);
 
+  const focusMobile = (isMobile && !detailsBarOpen) || !isMobile;
+
   return (
-    <div className="content-container">
-      {/* TITOLO */}
-      <div className="content-header">
-        <span
-          className="content-icon"
-          style={{ color: activeContent.color || "#667eea" }}
-        >
-          {activeContent.icon && typeof activeContent.icon === "function" ? (
-            <activeContent.icon
-              size={18}
-              color={activeContent.color || "#667eea"}
+    <>
+      {focusMobile && (
+        <div className="content-container">
+          {/* TITOLO */}
+          <div className="content-header">
+            <span
               className="content-icon"
-            />
-          ) : (
-            activeContent.icon
+              style={{ color: activeContent.color || "#667eea" }}
+            >
+              {activeContent.icon &&
+              typeof activeContent.icon === "function" ? (
+                <activeContent.icon
+                  size={18}
+                  color={activeContent.color || "#667eea"}
+                  className="content-icon"
+                />
+              ) : (
+                activeContent.icon
+              )}
+            </span>
+
+            <h1
+              className="content-title"
+              style={{ color: activeContent.color }}
+            >
+              {activeContent.name}
+            </h1>
+          </div>
+          {tasks.length === 0 && (
+            <p className="no-tasks">No tasks in this list</p>
           )}
-        </span>
 
-        <h1 className="content-title" style={{ color: activeContent.color }}>
-          {activeContent.name}
-        </h1>
-      </div>
-      {tasks.length === 0 && <p className="no-tasks">No tasks in this list</p>}
-
-      {/* LISTA TASK */}
-      <ul className="task-list">
-        {tasks.map((task) => (
-          <li
-            key={task.id}
-            className={`
+          {/* LISTA TASK */}
+          <ul className="task-list">
+            {tasks.map((task) => (
+              <li
+                key={task.id}
+                className={`
               ${task.completed ? "completed" : ""} 
               ${task.important ? "important" : ""}
               ${task.id === activeTask ? "selected" : ""}
             `}
-          >
-            {/* CONTROL */}
-            <div className="task-controls">
-              <button
-                onClick={() => onToggleComplete(task.id)}
-                className="toggle-complete"
-                aria-label={
-                  task.completed ? "Mark as not completed" : "Mark as completed"
-                }
               >
-                {task.completed ? <FiCheck /> : <FiCircle />}
-              </button>
-            </div>
-            {/* CONTENT */}
-            <div
-              className="task-text-container"
-              onClick={() => handleSelect(task.id)}
-            >
-              <span className="task-text">{task.text}</span>
-              <span
-                className="task-date"
-                style={{
-                  color: isPastDate(task.date, task.time)
-                    ? "rgb(255,56,55)"
-                    : "#888",
-                }}
-              >
-                {formatTaskDateTime(task.date, task.time)}
-              </span>
-            </div>
-            {/* OTHER */}
-            <button
-              onClick={() => onToggleImportant(task.id)}
-              className={task.important ? "toggle-important" : "toggle-normal"}
-              aria-label={
-                task.important ? "Mark as not important" : "Mark as important"
-              }
-            >
-              <FiStar
-                style={{ marginRight: "10px" }}
-                fill={task.important ? "currentColor" : "none"}
-                size={20}
-              />
-            </button>
-          </li>
-        ))}
-      </ul>
+                {/* CONTROL */}
+                <div className="task-controls">
+                  <button
+                    onClick={() => onToggleComplete(task.id)}
+                    className="toggle-complete"
+                    aria-label={
+                      task.completed
+                        ? "Mark as not completed"
+                        : "Mark as completed"
+                    }
+                  >
+                    {task.completed ? <FiCheck /> : <FiCircle />}
+                  </button>
+                </div>
+                {/* CONTENT */}
+                <div
+                  className="task-text-container"
+                  onClick={() => handleSelect(task.id)}
+                >
+                  <span className="task-text">{task.text}</span>
+                  <span
+                    className="task-date"
+                    style={{
+                      color: isPastDate(task.date, task.time)
+                        ? "rgb(255,56,55)"
+                        : "#888",
+                    }}
+                  >
+                    {formatTaskDateTime(task.date, task.time)}
+                  </span>
+                </div>
+                {/* OTHER */}
+                <button
+                  onClick={() => onToggleImportant(task.id)}
+                  className={
+                    task.important ? "toggle-important" : "toggle-normal"
+                  }
+                  aria-label={
+                    task.important
+                      ? "Mark as not important"
+                      : "Mark as important"
+                  }
+                >
+                  <FiStar
+                    style={{ marginRight: "10px" }}
+                    fill={task.important ? "currentColor" : "none"}
+                    size={20}
+                  />
+                </button>
+              </li>
+            ))}
+          </ul>
 
-      {/* ---------------------------------------------------
+          {/* ---------------------------------------------------
                               INPUT
       --------------------------------------------------- */}
 
-      <div className="input-area">
-        <div className="input-data">
-          <button
-            onClick={() => {
-              if (newTaskDate && isToday(newTaskDate)) {
-                setNewTaskDate(null);
-              } else {
-                const today = new Date();
-                setNewTaskDate(today);
-              }
-            }}
-            className={`button-data ${
-              newTaskDate && isToday(newTaskDate) ? "active" : ""
-            }`}
-          >
-            Today
-          </button>
-          <button
-            onClick={() => {
-              if (newTaskDate && isTomorrow(newTaskDate)) {
-                setNewTaskDate(null);
-              } else {
-                const tomorrow = new Date();
-                tomorrow.setDate(tomorrow.getDate() + 1);
-                setNewTaskDate(tomorrow);
-              }
-            }}
-            className={`button-data ${
-              newTaskDate && isTomorrow(newTaskDate) ? "active" : ""
-            }`}
-          >
-            Tomorrow
-          </button>
-          <button
-            onClick={() => {
-              if (newTaskDate) {
-                setNewTaskDate(null);
-              } else {
-                setShowDatePicker(!showDatePicker);
-              }
-            }}
-            className={`button-data ${
-              newTaskDate && !isToday(newTaskDate) && !isTomorrow(newTaskDate)
-                ? "active"
-                : ""
-            }`}
-          >
-            Date
-          </button>
-          {showDatePicker && (
-            <>
-              <div
-                className="date-picker-overlay"
-                onClick={() => setShowDatePicker(false)}
+          <div className="input-area">
+            <div className="input-data">
+              {!isMobile && (
+                <>
+                  <button
+                    onClick={() => {
+                      if (newTaskDate && isToday(newTaskDate)) {
+                        setNewTaskDate(null);
+                      } else {
+                        const today = new Date();
+                        setNewTaskDate(today);
+                      }
+                    }}
+                    className={`button-data ${
+                      newTaskDate && isToday(newTaskDate) ? "active" : ""
+                    }`}
+                  >
+                    Today
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (newTaskDate && isTomorrow(newTaskDate)) {
+                        setNewTaskDate(null);
+                      } else {
+                        const tomorrow = new Date();
+                        tomorrow.setDate(tomorrow.getDate() + 1);
+                        setNewTaskDate(tomorrow);
+                      }
+                    }}
+                    className={`button-data ${
+                      newTaskDate && isTomorrow(newTaskDate) ? "active" : ""
+                    }`}
+                  >
+                    Tomorrow
+                  </button>
+                </>
+              )}
+              <button
+                onClick={() => {
+                  if (newTaskDate) {
+                    setNewTaskDate(null);
+                  } else {
+                    setShowDatePicker(!showDatePicker);
+                  }
+                }}
+                className={`button-data ${
+                  newTaskDate &&
+                  !isToday(newTaskDate) &&
+                  !isTomorrow(newTaskDate)
+                    ? "active"
+                    : ""
+                }`}
+              >
+                Date
+              </button>
+              {showDatePicker && (
+                <>
+                  <div
+                    className="date-picker-overlay"
+                    onClick={() => setShowDatePicker(false)}
+                  />
+                  <div className="date-picker-container">
+                    <DatePicker
+                      selected={newTaskDate || new Date()}
+                      onChange={(date) => {
+                        setNewTaskDate(date);
+                        setShowDatePicker(false);
+                      }}
+                      dateFormat="dd/MM/yyyy"
+                      inline
+                    />
+                  </div>
+                </>
+              )}
+              <button
+                onClick={() => {
+                  if (newTaskTime) {
+                    setNewTaskTime(null);
+                  } else {
+                    setShowTimePicker(!showTimePicker);
+                  }
+                }}
+                className={`button-data ${newTaskTime ? "active" : ""}`}
+              >
+                Time
+              </button>
+              {showTimePicker && (
+                <>
+                  <div
+                    className="time-picker-overlay"
+                    onClick={() => setShowTimePicker(false)}
+                  />
+                  <div className="time-picker-container">
+                    <DatePicker
+                      selected={newTaskTime || new Date()}
+                      onChange={(date) => {
+                        setNewTaskTime(date);
+                        setShowTimePicker(false);
+                      }}
+                      showTimeSelect
+                      showTimeSelectOnly
+                      timeIntervals={15}
+                      dateFormat="h:mm aa"
+                      timeCaption="Time"
+                      inline
+                    />
+                  </div>
+                </>
+              )}
+              <button
+                onClick={() => setNewTaskImportant(!newTaskImportant)}
+                className={`button-important ${
+                  newTaskImportant ? "toggle-important" : "toggle-normal"
+                }`}
+              >
+                <FiStar fill={newTaskImportant ? "currentColor" : "none"} />
+              </button>
+            </div>
+            <div className="input-text">
+              <input
+                type="text"
+                value={newTaskText}
+                onChange={(e) => setnewTaskText(e.target.value)}
+                placeholder={`Add a task to ${
+                  activeContent?.name || "this list"
+                }...`}
               />
-              <div className="date-picker-container">
-                <DatePicker
-                  selected={newTaskDate || new Date()}
-                  onChange={(date) => {
-                    setNewTaskDate(date);
-                    setShowDatePicker(false);
-                  }}
-                  dateFormat="dd/MM/yyyy"
-                  inline
-                />
-              </div>
-            </>
-          )}
-          <button
-            onClick={() => {
-              if (newTaskTime) {
-                setNewTaskTime(null);
-              } else {
-                setShowTimePicker(!showTimePicker);
-              }
-            }}
-            className={`button-data ${newTaskTime ? "active" : ""}`}
-          >
-            Time
-          </button>
-          {showTimePicker && (
-            <>
-              <div
-                className="time-picker-overlay"
-                onClick={() => setShowTimePicker(false)}
-              />
-              <div className="time-picker-container">
-                <DatePicker
-                  selected={newTaskTime || new Date()}
-                  onChange={(date) => {
-                    setNewTaskTime(date);
-                    setShowTimePicker(false);
-                  }}
-                  showTimeSelect
-                  showTimeSelectOnly
-                  timeIntervals={15}
-                  dateFormat="h:mm aa"
-                  timeCaption="Time"
-                  inline
-                />
-              </div>
-            </>
-          )}
-          <button
-            onClick={() => setNewTaskImportant(!newTaskImportant)}
-            className={`button-important ${
-              newTaskImportant ? "toggle-important" : "toggle-normal"
-            }`}
-          >
-            <FiStar fill={newTaskImportant ? "currentColor" : "none"} />
-          </button>
+            </div>
+          </div>
         </div>
-        <div className="input-text">
-          <input
-            type="text"
-            value={newTaskText}
-            onChange={(e) => setnewTaskText(e.target.value)}
-            placeholder={`Add a task to ${
-              activeContent?.name || "this list"
-            }...`}
-          />
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 

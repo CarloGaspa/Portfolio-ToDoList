@@ -46,16 +46,8 @@
   transition: padding 0.3s ease;
 }
 
-/* Aggiusta il padding per schermi piccoli */
-@media (max-width: 768px) {
-  .content-area {
-    margin-left: 0;
-    width: 100%;
-  }
-
-  .sidebar-open .content-area {
-    transform: translateX(17rem);
-    width: calc(100% - 17rem);
-    overflow-x: hidden;
-  }
+.content-area-mobile {
+  width: 0% !important;
+  transition: margin-right var(--transition-time) var(--transition-easing),
+    filter var(--transition-time) ease;
 }

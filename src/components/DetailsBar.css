@@ -31,6 +31,12 @@
   flex: 1;
 }
 
+/* MOBILE */
+.mobile {
+  padding: 0.1rem;
+  max-width: 100%;
+}
+
 /* HEADER SECTION */
 .details-header {
   padding-bottom: 0.75rem;
