@@ -29,7 +29,6 @@ export default function SideBar({
 
   useEffect(() => {
     if (isOpen) {
-      // Ritardo di 50ms per assicurarsi che la sidebar sia completamente aperta prima dell'animazione
       const timer = setTimeout(() => setShowLabels(true), 0);
       return () => clearTimeout(timer);
     } else {
@@ -37,9 +36,11 @@ export default function SideBar({
     }
   }, [isOpen]);
 
-  if (isMobile && isOpen) {
-    onOpenClose();
-  }
+  useEffect(() => {
+    if (isMobile && isOpen) {
+      onOpenClose();
+    }
+  }, [isMobile, isOpen, onOpenClose]);
 
   return (
     <aside className={`sidebar ${isOpen ? "open" : "shorted"}`}>

@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TopBar from "./components/TopBar.jsx";
 import SideBar from "./components/SideBar.jsx";
 import Content from "./components/Content.jsx";
@@ -298,9 +298,25 @@ const tasksInitialState = [
   },
 ];
 
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia(`(max-width: ${breakpoint}px)`).matches
+  );
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(`(max-width: ${breakpoint}px)`);
+
+    const handleResize = () => setIsMobile(mediaQuery.matches);
+    mediaQuery.addEventListener("change", handleResize);
+
+    return () => mediaQuery.removeEventListener("change", handleResize);
+  }, [breakpoint]);
+
+  return isMobile;
+}
+
 export default function App() {
-  /* State device  */
-  const [isMobile, setIsMobile] = useState(true);
+  const isMobile = useIsMobile();
 
   /* States lists*/
   const [sideBarItems, setSideBarItems] = useState(sideBarInitialState);
@@ -347,7 +363,9 @@ export default function App() {
 
       [LIST_IDS.MY_DAY]: (task) => {
         if (task.completed) return false;
-        if (!task.date) return false;
+        if (!task.date && !task.time) return false;
+
+        if (!task.date && task.time) return true;
 
         const taskDate = new Date(task.date);
         taskDate.setHours(0, 0, 0, 0);
