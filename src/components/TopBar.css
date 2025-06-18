@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 3rem;
+  height: 4rem;
   background-color: rgb(25, 26, 25);
   color: #d1d5db;
   display: flex;
@@ -29,4 +29,48 @@
 
 .menu-toggle {
   display: none;
+}
+
+@media (max-width: 768px) {
+  .topbar {
+    display: flex;
+    align-items: center;
+    padding-left: 0.7rem;
+    padding-right: 0.7rem;
+    height: 3.2rem;
+    font-size: 1.08rem;
+  }
+  .menu-toggle {
+    display: block;
+    font-size: 2.2rem;
+    background: none;
+    border: none;
+    color: #d1d5db;
+    margin-right: 0.7rem;
+    cursor: pointer;
+    padding: 0 0.7rem;
+    border-radius: 8px;
+    transition: background 0.2s;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .menu-toggle:active {
+    background: #232323;
+    outline: none;
+    box-shadow: none;
+  }
+  .menu-toggle:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  .topbar-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    padding-left: 0.5rem;
+  }
+  .topbar-nav {
+    display: none;
+  }
 }

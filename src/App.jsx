@@ -321,7 +321,7 @@ export default function App() {
   /* States lists*/
   const [sideBarItems, setSideBarItems] = useState(sideBarInitialState);
   const [activeContent, setActiveContent] = useState(LIST_IDS.INBOX);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(!isMobile);
   const [isModalListOpen, setIsModalListOpen] = useState(false);
 
   /* States tasks*/
@@ -330,7 +330,8 @@ export default function App() {
   const [taskDetailsOpen, setTaskDetailsOpen] = useState(false);
 
   /* Functions */
-  const toggleSideBar = () => setSidebarOpen((prev) => !prev);
+  const toggleSideBar = () => setSidebarOpen((prev) => (isMobile ? true : !prev));
+  const closeSidebar = () => setSidebarOpen(false);
 
   const handleAddItem = (newItem) => {
     const color =
@@ -414,6 +415,11 @@ export default function App() {
 
   const handleRemoveTask = (taskId) => {
     setTasks(tasks.filter((task) => task.id !== taskId));
+    // Se il task eliminato era quello attivo, chiudi la barra dettagli e resetta activeTask
+    if (activeTask === taskId) {
+      setTaskDetailsOpen(false);
+      setActivetask("");
+    }
   };
 
   const handleToggleComplete = (taskId) => {
@@ -443,17 +449,42 @@ export default function App() {
     );
   };
 
+  // Chiudi sidebar automaticamente su mobile quando cambia isMobile
+  useEffect(() => {
+    if (isMobile) setSidebarOpen(false);
+    else setSidebarOpen(true);
+  }, [isMobile]);
+
   /* Return */
   return (
     <>
       <TopBar onToggleSidebar={toggleSideBar} />
+      {/* Overlay per mobile */}
+      {isMobile && sidebarOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={closeSidebar}
+          style={{
+            position: "fixed",
+            top: "2.5rem",
+            left: 0,
+            width: "100vw",
+            height: "calc(100vh - 2.5rem)",
+            background: "rgba(0,0,0,0.4)",
+            zIndex: 1999,
+          }}
+        />
+      )}
       <div className={`main-area ${sidebarOpen ? "sidebar-open" : ""}`}>
         <SideBar
           isMobile={isMobile}
           isOpen={sidebarOpen}
           onOpenClose={() => setSidebarOpen(!sidebarOpen)}
           items={sideBarItems}
-          onSelectItem={setActiveContent}
+          onSelectItem={(id) => {
+            setActiveContent(id);
+            if (isMobile) setSidebarOpen(false);
+          }}
           onAddItem={() => setIsModalListOpen(true)} // apri pop-up
           onRemoveItem={handleRemoveItem}
           activeContent={activeContent}

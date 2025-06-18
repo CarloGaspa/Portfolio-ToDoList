@@ -49,3 +49,50 @@
   transition: margin-right var(--transition-time) var(--transition-easing),
     filter var(--transition-time) ease;
 }
+
+@media (max-width: 768px) {
+  html, body, #root {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box;
+  }
+  .main-area {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+  .content-area {
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+  }
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 2.5rem;
+    z-index: 2000;
+  }
+  .sidebar-overlay {
+    position: fixed;
+    top: 2.5rem;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 2.5rem);
+    background: rgba(0,0,0,0.4);
+    z-index: 1999;
+  }
+}
+
+/* Regola globale per evitare overflow orizzontale */
+html, body, #root {
+  overflow-x: hidden;
+  box-sizing: border-box;
+}

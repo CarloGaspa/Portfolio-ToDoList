@@ -36,12 +36,6 @@ export default function SideBar({
     }
   }, [isOpen]);
 
-  useEffect(() => {
-    if (isMobile && isOpen) {
-      onOpenClose();
-    }
-  }, [isMobile, isOpen, onOpenClose]);
-
   return (
     <aside className={`sidebar ${isOpen ? "open" : "shorted"}`}>
       <ul>
