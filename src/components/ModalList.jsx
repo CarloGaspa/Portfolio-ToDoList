@@ -91,8 +91,8 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
         <Dialog.Overlay className="fixed inset-0 bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm z-50" />
         <Dialog.Content
           style={{ backgroundColor: "rgb(37, 35, 33)" }}
-          className="fixed left-1/2 top-[4.5rem] -translate-x-1/2 w-[98vw] max-w-lg p-4 rounded-xl shadow-2xl text-gray-100 font-sans z-50 max-h-[90vh] overflow-y-auto 
-                     sm:top-1/2 sm:-translate-y-1/2 sm:p-8 sm:rounded-2xl sm:w-[88%]"
+          className="fixed left-1/2 top-[4.5rem] bottom-4 -translate-x-1/2 w-[98vw] max-w-lg p-4 rounded-xl shadow-2xl text-gray-100 font-sans z-50 overflow-y-auto 
+                     sm:top-1/2 sm:bottom-auto sm:-translate-y-1/2 sm:p-8 sm:rounded-2xl sm:w-[88%]"
         >
           <div className="flex items-center justify-between mb-3">
             <Dialog.Close asChild>
