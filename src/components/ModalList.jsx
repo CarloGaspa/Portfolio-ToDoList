@@ -92,9 +92,9 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
         <Dialog.Content
           style={{ backgroundColor: "rgb(37, 35, 33)" }}
           className="fixed z-50 w-[90vw] max-w-md max-h-[80vh] overflow-y-auto
-                    top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
-                    bg-neutral-800 rounded-xl shadow-xl p-6
-                    mobile:top-[60%] mobile:w-[95vw] mobile:p-4 mobile:max-h-[80vh]"
+                    top-[55%] left-[50%] translate-x-[-50%] translate-y-[-50%]
+                    bg-neutral-800 rounded-xl shadow-xl p-5
+                    mobile:top-[60%] mobile:w-[90vw] mobile:p-4 mobile:max-h-[80vh]"
         >
           <div className="flex items-center justify-between mb-3 xs:mb-1 xs:py-0.5">
             <Dialog.Close asChild>
