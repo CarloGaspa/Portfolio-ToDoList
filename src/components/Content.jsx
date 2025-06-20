@@ -1,6 +1,6 @@
 import "../App.css";
 import "./Content.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FiPlus, FiTrash2, FiCheck, FiCircle, FiStar } from "react-icons/fi";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -24,6 +24,8 @@ export default function Content({
   const [newTaskImportant, setNewTaskImportant] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [justCompleted, setJustCompleted] = useState([]);
+  const justCompletedTimeouts = useRef({});
 
   const handleAddTask = () => {
     if (newTaskText.trim()) {
@@ -78,6 +80,25 @@ export default function Content({
 
   const focusMobile = (isMobile && !detailsBarOpen) || !isMobile;
 
+  // Handler custom per completamento task con animazione
+  const handleToggleComplete = (taskId, alreadyCompleted) => {
+    if (!alreadyCompleted) {
+      setJustCompleted((prev) => [...prev, taskId]);
+      justCompletedTimeouts.current[taskId] = setTimeout(() => {
+        setJustCompleted((prev) => prev.filter((id) => id !== taskId));
+        delete justCompletedTimeouts.current[taskId];
+      }, 500); // durata animazione
+    }
+    onToggleComplete(taskId);
+  };
+
+  // Pulizia dei timeout se il componente viene smontato
+  useEffect(() => {
+    return () => {
+      Object.values(justCompletedTimeouts.current).forEach(clearTimeout);
+    };
+  }, []);
+
   return (
     <>
       {focusMobile && (
@@ -120,12 +141,15 @@ export default function Content({
               ${task.completed ? "completed" : ""} 
               ${task.important ? "important" : ""}
               ${task.id === activeTask ? "selected" : ""}
+              ${justCompleted.includes(task.id) ? "just-completed" : ""}
             `}
               >
                 {/* CONTROL */}
                 <div className="task-controls">
                   <button
-                    onClick={() => onToggleComplete(task.id)}
+                    onClick={() =>
+                      handleToggleComplete(task.id, task.completed)
+                    }
                     className="toggle-complete"
                     aria-label={
                       task.completed
@@ -133,7 +157,11 @@ export default function Content({
                         : "Mark as completed"
                     }
                   >
-                    {task.completed ? <FiCheck /> : <FiCircle />}
+                    {task.completed || justCompleted.includes(task.id) ? (
+                      <FiCheck />
+                    ) : (
+                      <FiCircle />
+                    )}
                   </button>
                 </div>
                 {/* CONTENT */}
