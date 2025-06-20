@@ -182,41 +182,37 @@ export default function Content({
 
           <div className="input-area">
             <div className="input-data">
-              {!isMobile && (
-                <>
-                  <button
-                    onClick={() => {
-                      if (newTaskDate && isToday(newTaskDate)) {
-                        setNewTaskDate(null);
-                      } else {
-                        const today = new Date();
-                        setNewTaskDate(today);
-                      }
-                    }}
-                    className={`button-data ${
-                      newTaskDate && isToday(newTaskDate) ? "active" : ""
-                    }`}
-                  >
-                    Today
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (newTaskDate && isTomorrow(newTaskDate)) {
-                        setNewTaskDate(null);
-                      } else {
-                        const tomorrow = new Date();
-                        tomorrow.setDate(tomorrow.getDate() + 1);
-                        setNewTaskDate(tomorrow);
-                      }
-                    }}
-                    className={`button-data ${
-                      newTaskDate && isTomorrow(newTaskDate) ? "active" : ""
-                    }`}
-                  >
-                    Tomorrow
-                  </button>
-                </>
-              )}
+              <button
+                onClick={() => {
+                  if (newTaskDate && isToday(newTaskDate)) {
+                    setNewTaskDate(null);
+                  } else {
+                    const today = new Date();
+                    setNewTaskDate(today);
+                  }
+                }}
+                className={`button-data ${
+                  newTaskDate && isToday(newTaskDate) ? "active" : ""
+                }`}
+              >
+                Today
+              </button>
+              <button
+                onClick={() => {
+                  if (newTaskDate && isTomorrow(newTaskDate)) {
+                    setNewTaskDate(null);
+                  } else {
+                    const tomorrow = new Date();
+                    tomorrow.setDate(tomorrow.getDate() + 1);
+                    setNewTaskDate(tomorrow);
+                  }
+                }}
+                className={`button-data ${
+                  newTaskDate && isTomorrow(newTaskDate) ? "active" : ""
+                }`}
+              >
+                Tomorrow
+              </button>
               <button
                 onClick={() => {
                   if (newTaskDate) {

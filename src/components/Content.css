@@ -390,7 +390,7 @@ a {
   .input-data .button-important {
     min-width: 42px;
     min-height: 33px;
-    font-size: 1rem;
+    font-size: 0.8rem;
     border-radius: 10px;
     padding: 0 12px;
     background: #232323;
@@ -441,5 +441,25 @@ a {
     color: #bdbdbd;
     opacity: 1;
     font-size: 0.9rem;
+  }
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+  .time-picker-container {
+    position: fixed;
+    top: -170%;
+    padding: 10px;
+    padding-bottom: 5px;
+    transition: all 0.3s ease;
+  }
+  .date-picker-container {
+    top: -320% !important;
+    left: 50% !important;
+    transform: translate(-50%, 0) !important;
+    max-width: 400px !important;
+    border-radius: 16px !important;
+    z-index: 1000;
   }
 }
