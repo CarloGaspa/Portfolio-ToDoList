@@ -60,6 +60,13 @@
     overflow-x: hidden !important;
     box-sizing: border-box;
   }
+  .main-area, .content-area, .content-container, .task-list {
+    transform: none !important;
+    filter: none !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
   .main-area {
     width: 100% !important;
     min-width: 0 !important;
