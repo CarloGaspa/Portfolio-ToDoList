@@ -70,12 +70,11 @@ export default function Content({
     onSelectTask(taskId);
   };
 
-  const handleGlobalKeyDown = (event) => {
-    if (event.key === "Enter") {
+  const handleInputKeyDown = (e) => {
+    if (e.key === "Enter") {
       handleAddTask();
     }
   };
-  document.addEventListener("keydown", handleGlobalKeyDown);
 
   const focusMobile = (isMobile && !detailsBarOpen) || !isMobile;
 
@@ -299,6 +298,7 @@ export default function Content({
                 type="text"
                 value={newTaskText}
                 onChange={(e) => setnewTaskText(e.target.value)}
+                onKeyDown={handleInputKeyDown}
                 placeholder={`Add a task to ${
                   activeContent?.name || "this list"
                 }...`}
