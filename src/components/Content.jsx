@@ -252,10 +252,10 @@ export default function Content({
               {showDatePicker && (
                 <>
                   <div
-                    className="date-picker-overlay"
+                    className="content-date-picker-overlay"
                     onClick={() => setShowDatePicker(false)}
                   />
-                  <div className="date-picker-container">
+                  <div className="content-date-picker-container">
                     <DatePicker
                       selected={newTaskDate || new Date()}
                       onChange={(date) => {
@@ -283,10 +283,10 @@ export default function Content({
               {showTimePicker && (
                 <>
                   <div
-                    className="time-picker-overlay"
+                    className="content-time-picker-overlay"
                     onClick={() => setShowTimePicker(false)}
                   />
-                  <div className="time-picker-container">
+                  <div className="content-time-picker-container">
                     <DatePicker
                       selected={newTaskTime || new Date()}
                       onChange={(date) => {

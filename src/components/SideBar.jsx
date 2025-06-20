@@ -36,6 +36,12 @@ export default function SideBar({
     }
   }, [isOpen]);
 
+  const closeSideInMobile = () => {
+    if (isMobile && onOpenClose) {
+      onOpenClose();
+    }
+  };
+
   return (
     <aside className={`sidebar ${isOpen ? "open" : "shorted"}`}>
       <ul>
@@ -80,7 +86,7 @@ export default function SideBar({
       {/* ADD LIST */}
       <button
         onClick={() => {
-          onCloseDetail(), onAddItem();
+          onCloseDetail(), onAddItem(), closeSideInMobile();
         }}
         className="add-btn"
       >

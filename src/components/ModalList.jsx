@@ -189,7 +189,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
             className="bg-neutral-800 p-3 rounded-lg mb-1 mt-3"
             style={{ backgroundColor: "rgb(50, 48, 46)" }}
           >
-            <div className="grid grid-cols-6 gap-3 justify-items-center">
+            <div className="icon-grid grid grid-cols-6 gap-3 justify-items-center">
               {ICONS.map(({ name, icon: IconComponent }) => {
                 const isSelected = selectedIconName === name;
                 return (

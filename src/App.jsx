@@ -330,7 +330,10 @@ export default function App() {
   const [taskDetailsOpen, setTaskDetailsOpen] = useState(false);
 
   /* Functions */
-  const toggleSideBar = () => setSidebarOpen((prev) => !prev);
+  const toggleSideBar = () => {
+    setSidebarOpen((prev) => !prev);
+    setTaskDetailsOpen(false);
+  };
   const closeSidebar = () => setSidebarOpen(false);
 
   const handleAddItem = (newItem) => {

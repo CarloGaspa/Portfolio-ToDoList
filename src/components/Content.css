@@ -267,16 +267,16 @@ a {
   color: white;
 }
 
-.date-picker-overlay,
-.time-picker-overlay {
+.content-date-picker-overlay,
+.content-time-picker-overlay {
   position: fixed;
   inset: 0; /* Shorthand for top, right, bottom, left: 0 */
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
 }
 
-.date-picker-container,
-.time-picker-container {
+.content-date-picker-container,
+.content-time-picker-container {
   position: fixed;
   top: 70%;
   left: 50%;
@@ -292,7 +292,7 @@ a {
   background-color: rgb(50, 49, 48);
 }
 
-.time-picker-container {
+.content-time-picker-container {
   max-width: 119px;
 }
 
@@ -472,14 +472,14 @@ a {
   select {
     font-size: 16px !important;
   }
-  .time-picker-container {
+  .content-time-picker-container {
     position: fixed;
     top: -170%;
     padding: 10px;
     padding-bottom: 5px;
     transition: all 0.3s ease;
   }
-  .date-picker-container {
+  .content-date-picker-container {
     top: -320% !important;
     left: 50% !important;
     transform: translate(-50%, 0) !important;
