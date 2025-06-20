@@ -1,13 +1,13 @@
 import "../App.css";
 import "./Content.css";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FiPlus, FiTrash2, FiCheck, FiCircle, FiStar } from "react-icons/fi";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Content({
   isMobile,
-  activeContent,
+  activeContent = {},
   tasks = [],
   onSelectTask,
   onAddTask,
@@ -18,7 +18,7 @@ export default function Content({
   activeTask,
   detailsBarOpen,
 }) {
-  const [newTaskText, setnewTaskText] = useState("");
+  const [newTaskText, setNewTaskText] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(null);
   const [newTaskTime, setNewTaskTime] = useState(null);
   const [newTaskImportant, setNewTaskImportant] = useState(false);
@@ -28,44 +28,38 @@ export default function Content({
   const justCompletedTimeouts = useRef({});
 
   const handleAddTask = () => {
-    if (newTaskText.trim()) {
-      // Format date consistently (YYYY-MM-DD)
-      const formattedDate = newTaskDate
-        ? new Date(newTaskDate).toISOString().split("T")[0]
-        : null;
+    const trimmedText = newTaskText.trim();
+    if (!trimmedText) return;
 
-      // Format time consistently (HH:MM AM/PM)
-      const formattedTime = newTaskTime
-        ? new Date(newTaskTime).toLocaleTimeString([], {
-            hour: "2-digit",
-            minute: "2-digit",
-            hour12: false,
-          })
-        : null;
+    const formattedDate = newTaskDate
+      ? new Date(newTaskDate).toISOString().split("T")[0]
+      : null;
+    const formattedTime = newTaskTime
+      ? new Date(newTaskTime).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+        })
+      : null;
 
-      let isImportant = newTaskImportant;
-      let taskDate = formattedDate;
-      if (activeContent.id === "important") {
-        isImportant = true;
-      }
-      if (activeContent.id === "myday") {
-        if (!formattedDate) {
-          const today = new Date();
-          taskDate = today.toISOString().split("T")[0];
-        }
-      }
-
-      onAddTask({
-        text: newTaskText,
-        important: isImportant,
-        date: taskDate,
-        time: formattedTime,
-      });
-      setnewTaskText("");
-      setNewTaskDate(null);
-      setNewTaskTime(null);
-      setNewTaskImportant(false);
+    let isImportant = newTaskImportant;
+    let taskDate = formattedDate;
+    if (activeContent.id === "important") isImportant = true;
+    if (activeContent.id === "myday" && !formattedDate) {
+      const today = new Date();
+      taskDate = today.toISOString().split("T")[0];
     }
+
+    onAddTask({
+      text: trimmedText,
+      important: isImportant,
+      date: taskDate,
+      time: formattedTime,
+    });
+    setNewTaskText("");
+    setNewTaskDate(null);
+    setNewTaskTime(null);
+    setNewTaskImportant(false);
   };
 
   const handleSelect = (taskId) => {
@@ -80,19 +74,17 @@ export default function Content({
 
   const focusMobile = (isMobile && !detailsBarOpen) || !isMobile;
 
-  // Handler custom per completamento task con animazione
   const handleToggleComplete = (taskId, alreadyCompleted) => {
     if (!alreadyCompleted) {
       setJustCompleted((prev) => [...prev, taskId]);
       justCompletedTimeouts.current[taskId] = setTimeout(() => {
         setJustCompleted((prev) => prev.filter((id) => id !== taskId));
         delete justCompletedTimeouts.current[taskId];
-      }, 500); // durata animazione
+      }, 500);
     }
     onToggleComplete(taskId);
   };
 
-  // Pulizia dei timeout se il componente viene smontato
   useEffect(() => {
     return () => {
       Object.values(justCompletedTimeouts.current).forEach(clearTimeout);
@@ -214,8 +206,7 @@ export default function Content({
                   if (newTaskDate && isToday(newTaskDate)) {
                     setNewTaskDate(null);
                   } else {
-                    const today = new Date();
-                    setNewTaskDate(today);
+                    setNewTaskDate(new Date());
                   }
                 }}
                 className={`button-data ${
@@ -245,7 +236,7 @@ export default function Content({
                   if (newTaskDate) {
                     setNewTaskDate(null);
                   } else {
-                    setShowDatePicker(!showDatePicker);
+                    setShowDatePicker((prev) => !prev);
                   }
                 }}
                 className={`button-data ${
@@ -282,7 +273,7 @@ export default function Content({
                   if (newTaskTime) {
                     setNewTaskTime(null);
                   } else {
-                    setShowTimePicker(!showTimePicker);
+                    setShowTimePicker((prev) => !prev);
                   }
                 }}
                 className={`button-data ${newTaskTime ? "active" : ""}`}
@@ -313,7 +304,7 @@ export default function Content({
                 </>
               )}
               <button
-                onClick={() => setNewTaskImportant(!newTaskImportant)}
+                onClick={() => setNewTaskImportant((prev) => !prev)}
                 className={`button-important ${
                   newTaskImportant ? "toggle-important" : "toggle-normal"
                 }`}
@@ -325,7 +316,7 @@ export default function Content({
               <input
                 type="text"
                 value={newTaskText}
-                onChange={(e) => setnewTaskText(e.target.value)}
+                onChange={(e) => setNewTaskText(e.target.value)}
                 onKeyDown={handleInputKeyDown}
                 placeholder={`Add a task to ${
                   activeContent?.name || "this list"

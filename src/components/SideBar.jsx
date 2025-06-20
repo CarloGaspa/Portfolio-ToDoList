@@ -1,7 +1,7 @@
+import React, { useState, useEffect } from "react";
 import { TheaterIcon } from "lucide-react";
 import "../App.css";
 import "./SideBar.css";
-import { useState, useEffect } from "react";
 import {
   FiX,
   FiPlus,

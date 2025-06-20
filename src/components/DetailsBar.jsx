@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from "react";
 import "../App.css";
 import "./DetailsBar.css";
 import {
@@ -11,7 +12,6 @@ import {
   FiClock,
   FiEdit3,
 } from "react-icons/fi";
-import { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BiLeftArrow } from "react-icons/bi";

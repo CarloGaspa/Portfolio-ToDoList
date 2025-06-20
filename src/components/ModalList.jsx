@@ -1,6 +1,6 @@
+import React, { useState } from "react";
 import "../App.css";
 import * as Dialog from "@radix-ui/react-dialog";
-import { useState } from "react";
 import * as FiIcons from "react-icons/fi";
 
 // Convertiamo gli import in un array di oggetti dinamico
