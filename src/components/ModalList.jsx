@@ -91,10 +91,10 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
         <Dialog.Overlay className="fixed inset-0 bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm z-50" />
         <Dialog.Content
           style={{ backgroundColor: "rgb(37, 35, 33)" }}
-          className="fixed top-1/2 left-1/2 p-8 rounded-2xl shadow-2xl transform -translate-x-1/2 -translate-y-1/2 w-[88%] max-w-lg text-gray-100 font-sans z-50
-            max-h-[90vh] overflow-y-auto
-            sm:p-6 sm:rounded-xl
-            xs:p-1 xs:rounded-md xs:w-[99vw] xs:max-w-full"
+          className="fixed z-50 w-[90vw] max-w-md max-h-[80vh] overflow-y-auto
+                    top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]
+                    bg-neutral-800 rounded-xl shadow-xl p-6
+                    mobile:top-[60%] mobile:w-[95vw] mobile:p-4 mobile:max-h-[80vh]"
         >
           <div className="flex items-center justify-between mb-3 xs:mb-1 xs:py-0.5">
             <Dialog.Close asChild>
@@ -135,7 +135,11 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
               className="aspect-square inline-flex items-center justify-center rounded-full bg-neutral-800 p-4 mb-2 xs:p-1 xs:mb-0"
               style={{ backgroundColor: "rgb(50, 48, 46)" }}
             >
-              <IconeComponent size={28} className="xs:w-6 xs:h-6" color={selectedColor} />
+              <IconeComponent
+                size={28}
+                className="xs:w-6 xs:h-6"
+                color={selectedColor}
+              />
             </div>
           </div>
 
@@ -150,7 +154,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
               backgroundColor: "rgb(50, 48, 46)",
               color: selectedColor,
               borderColor: "rgb(70, 70, 70)",
-              height: '2.1rem',
+              height: "2.1rem",
             }}
             className="w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 shadow-inner font-bold focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-blue-500 transition xs:p-1 xs:text-xs xs:h-7"
             value={name}
@@ -176,11 +180,11 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
                   key={color}
                   type="button"
                   onClick={() => setSelectedColor(color)}
-                  className={`aspect-square w-8 rounded-full border-2 transition-transform duration-150 ${
+                  className={`aspect-square rounded-full border-2 transition-transform duration-150 ${
                     selectedColor === color
                       ? "border-white scale-110"
                       : "border-transparent"
-                  } xs:w-5 xs:h-5`}
+                  } xs:w-1.5 xs:h-1.5`}
                   style={{ backgroundColor: color }}
                   aria-label={`Select color ${color}`}
                 />
@@ -201,14 +205,18 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
                     key={name}
                     type="button"
                     onClick={() => setSelectedIconName(name)}
-                    className={`aspect-square h-10 flex items-center justify-center rounded-full border transition-transform duration-150 ${
+                    className={`aspect-square h-8 flex items-center justify-center rounded-full border transition-transform duration-150 ${
                       isSelected
                         ? "border-white scale-110"
                         : "border-transparent"
                     } xs:h-6`}
                     aria-label={`Select icon ${name}`}
                   >
-                    <IconComponent size={12} className="xs:w-3 xs:h-3" color="white" />
+                    <IconComponent
+                      size={12}
+                      className="xs:w-3 xs:h-3"
+                      color="white"
+                    />
                   </button>
                 );
               })}
