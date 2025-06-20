@@ -91,22 +91,20 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
         <Dialog.Overlay className="fixed inset-0 bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm z-50" />
         <Dialog.Content
           style={{ backgroundColor: "rgb(37, 35, 33)" }}
-          className="fixed z-50 w-[90vw] max-w-md max-h-[80vh] overflow-y-auto
-                    top-[55%] left-[50%] translate-x-[-50%] translate-y-[-50%]
-                    bg-neutral-800 rounded-xl shadow-xl p-5
-                    mobile:top-[60%] mobile:w-[90vw] mobile:p-4 mobile:max-h-[80vh]"
+          className="fixed left-1/2 top-[4.5rem] -translate-x-1/2 w-[98vw] max-w-lg p-4 rounded-xl shadow-2xl text-gray-100 font-sans z-50 max-h-[90vh] overflow-y-auto 
+                     sm:top-1/2 sm:-translate-y-1/2 sm:p-8 sm:rounded-2xl sm:w-[88%]"
         >
-          <div className="flex items-center justify-between mb-3 xs:mb-1 xs:py-0.5">
+          <div className="flex items-center justify-between mb-3">
             <Dialog.Close asChild>
               <button
-                className="bg-transparent border-transparent text-blue-600 hover:text-blue-500 opacity-90 hover:opacity-100 font-medium focus:outline-none focus:ring-0 focus:ring-offset-0 px-2 py-1 xs:text-xs xs:px-0.5 xs:py-0"
+                className="bg-transparent border-transparent text-blue-600 hover:text-blue-500 opacity-90 hover:opacity-100 font-medium focus:outline-none focus:ring-0 focus:ring-offset-0 px-2 py-1"
                 type="button"
                 onClick={resetModal}
               >
                 Cancel
               </button>
             </Dialog.Close>
-            <Dialog.Title className="text-2xl font-extrabold text-center flex-grow mx-2 xs:text-base xs:mx-0.5 xs:py-0">
+            <Dialog.Title className="text-2xl font-extrabold text-center flex-grow mx-2">
               New list
             </Dialog.Title>
             <button
@@ -115,7 +113,7 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
                 isValid
                   ? "text-blue-600 hover:text-blue-500"
                   : "text-gray-500 cursor-not-allowed"
-              } xs:text-xs xs:px-0.5 xs:py-0`}
+              }`}
               onClick={handleConfirm}
               disabled={!isValid}
             >
@@ -130,21 +128,17 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
           </div>
 
           {/* PREVIEW */}
-          <div className="flex justify-center mb-1 xs:mb-0.5 xs:py-0">
+          <div className="flex justify-center mb-1">
             <div
-              className="aspect-square inline-flex items-center justify-center rounded-full bg-neutral-800 p-4 mb-2 xs:p-1 xs:mb-0"
+              className="aspect-square inline-flex items-center justify-center rounded-full bg-neutral-800 p-4 mb-2"
               style={{ backgroundColor: "rgb(50, 48, 46)" }}
             >
-              <IconeComponent
-                size={28}
-                className="xs:w-6 xs:h-6"
-                color={selectedColor}
-              />
+              <IconeComponent size={50} color={selectedColor} />
             </div>
           </div>
 
           {/* INPUT */}
-          <Dialog.Description className="mb-4 text-gray-400 text-base xs:text-xs xs:mb-1 xs:py-0">
+          <Dialog.Description className="mb-4 text-gray-400 text-base">
             Enter the name of the new list
           </Dialog.Description>
 
@@ -154,9 +148,8 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
               backgroundColor: "rgb(50, 48, 46)",
               color: selectedColor,
               borderColor: "rgb(70, 70, 70)",
-              height: "2.1rem",
             }}
-            className="w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 shadow-inner font-bold focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-blue-500 transition xs:p-1 xs:text-xs xs:h-7"
+            className="w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 shadow-inner font-bold focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-blue-500 transition"
             value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => {
@@ -171,20 +164,20 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
 
           {/* COLORI */}
           <div
-            className="bg-neutral-800 p-3 rounded-lg mb-3 mt-3 xs:p-1 xs:mb-1 xs:mt-1"
+            className="bg-neutral-800 p-3 rounded-lg mb-3 mt-3"
             style={{ backgroundColor: "rgb(50, 48, 46)" }}
           >
-            <div className="grid grid-cols-6 gap-3 justify-items-center xs:grid-cols-4 xs:gap-1">
+            <div className="grid grid-cols-6 gap-3 justify-items-center">
               {COLORS.map((color) => (
                 <button
                   key={color}
                   type="button"
                   onClick={() => setSelectedColor(color)}
-                  className={`aspect-square rounded-full border-2 transition-transform duration-150 ${
+                  className={`aspect-square w-8 rounded-full border-2 transition-transform duration-150 ${
                     selectedColor === color
                       ? "border-white scale-110"
                       : "border-transparent"
-                  } xs:w-1.5 xs:h-1.5`}
+                  }`}
                   style={{ backgroundColor: color }}
                   aria-label={`Select color ${color}`}
                 />
@@ -194,10 +187,10 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
 
           {/* ICONE */}
           <div
-            className="bg-neutral-800 p-3 rounded-lg mb-1 mt-3 xs:p-1 xs:mb-1 xs:mt-1"
+            className="bg-neutral-800 p-3 rounded-lg mb-1 mt-3"
             style={{ backgroundColor: "rgb(50, 48, 46)" }}
           >
-            <div className="icon-grid grid grid-cols-6 justify-items-center xs:grid-cols-4 xs:gap-1">
+            <div className="icon-grid grid grid-cols-6 justify-items-center">
               {ICONS.map(({ name, icon: IconComponent }) => {
                 const isSelected = selectedIconName === name;
                 return (
@@ -205,18 +198,14 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
                     key={name}
                     type="button"
                     onClick={() => setSelectedIconName(name)}
-                    className={`aspect-square h-8 flex items-center justify-center rounded-full border transition-transform duration-150 ${
+                    className={`aspect-square h-10 flex items-center justify-center rounded-full border transition-transform duration-150 ${
                       isSelected
                         ? "border-white scale-110"
                         : "border-transparent"
-                    } xs:h-6`}
+                    }`}
                     aria-label={`Select icon ${name}`}
                   >
-                    <IconComponent
-                      size={12}
-                      className="xs:w-3 xs:h-3"
-                      color="white"
-                    />
+                    <IconComponent size={18} color="white" />
                   </button>
                 );
               })}
