@@ -91,10 +91,10 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
         <Dialog.Overlay className="fixed inset-0 bg-gradient-to-b from-black/50 to-black/30 backdrop-blur-sm z-50" />
         <Dialog.Content
           style={{ backgroundColor: "rgb(37, 35, 33)" }}
-          className="fixed left-1/2 top-[4.5rem] bottom-4 -translate-x-1/2 w-[98vw] max-w-lg p-4 rounded-xl shadow-2xl text-gray-100 font-sans z-50 overflow-y-auto 
+          className="fixed left-1/2 top-[4.5rem] bottom-4 -translate-x-1/2 w-[98vw] max-w-lg p-4 rounded-xl shadow-2xl text-gray-100 font-sans z-50 flex flex-col
                      sm:top-1/2 sm:bottom-auto sm:-translate-y-1/2 sm:p-8 sm:rounded-2xl sm:w-[88%]"
         >
-          <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center justify-between mb-3 flex-shrink-0">
             <Dialog.Close asChild>
               <button
                 className="bg-transparent border-transparent text-blue-600 hover:text-blue-500 opacity-90 hover:opacity-100 font-medium focus:outline-none focus:ring-0 focus:ring-offset-0 px-2 py-1"
@@ -127,88 +127,90 @@ export default function ModalList({ open, onOpenChange, onConfirm }) {
             </button>
           </div>
 
-          {/* PREVIEW */}
-          <div className="flex justify-center mb-1">
+          <div className="overflow-y-auto flex-grow">
+            {/* PREVIEW */}
+            <div className="flex justify-center mb-1">
+              <div
+                className="aspect-square inline-flex items-center justify-center rounded-full bg-neutral-800 p-4 mb-2"
+                style={{ backgroundColor: "rgb(50, 48, 46)" }}
+              >
+                <IconeComponent size={50} color={selectedColor} />
+              </div>
+            </div>
+
+            {/* INPUT */}
+            <Dialog.Description className="mb-4 text-gray-400 text-base">
+              Enter the name of the new list
+            </Dialog.Description>
+
+            <input
+              type="text"
+              style={{
+                backgroundColor: "rgb(50, 48, 46)",
+                color: selectedColor,
+                borderColor: "rgb(70, 70, 70)",
+              }}
+              className="w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 shadow-inner font-bold focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-blue-500 transition"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && isValid) {
+                  e.preventDefault();
+                  handleConfirm();
+                }
+              }}
+              placeholder="List Name"
+              autoFocus
+            />
+
+            {/* COLORI */}
             <div
-              className="aspect-square inline-flex items-center justify-center rounded-full bg-neutral-800 p-4 mb-2"
+              className="bg-neutral-800 p-3 rounded-lg mb-3 mt-3"
               style={{ backgroundColor: "rgb(50, 48, 46)" }}
             >
-              <IconeComponent size={50} color={selectedColor} />
-            </div>
-          </div>
-
-          {/* INPUT */}
-          <Dialog.Description className="mb-4 text-gray-400 text-base">
-            Enter the name of the new list
-          </Dialog.Description>
-
-          <input
-            type="text"
-            style={{
-              backgroundColor: "rgb(50, 48, 46)",
-              color: selectedColor,
-              borderColor: "rgb(70, 70, 70)",
-            }}
-            className="w-full p-3 rounded-lg text-gray-100 placeholder-gray-500 shadow-inner font-bold focus:outline-none focus:ring-0 focus:ring-offset-0 focus:ring-blue-500 transition"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" && isValid) {
-                e.preventDefault();
-                handleConfirm();
-              }
-            }}
-            placeholder="List Name"
-            autoFocus
-          />
-
-          {/* COLORI */}
-          <div
-            className="bg-neutral-800 p-3 rounded-lg mb-3 mt-3"
-            style={{ backgroundColor: "rgb(50, 48, 46)" }}
-          >
-            <div className="grid grid-cols-6 gap-3 justify-items-center">
-              {COLORS.map((color) => (
-                <button
-                  key={color}
-                  type="button"
-                  onClick={() => setSelectedColor(color)}
-                  className={`aspect-square w-8 rounded-full border-2 transition-transform duration-150 ${
-                    selectedColor === color
-                      ? "border-white scale-110"
-                      : "border-transparent"
-                  }`}
-                  style={{ backgroundColor: color }}
-                  aria-label={`Select color ${color}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* ICONE */}
-          <div
-            className="bg-neutral-800 p-3 rounded-lg mb-1 mt-3"
-            style={{ backgroundColor: "rgb(50, 48, 46)" }}
-          >
-            <div className="icon-grid grid grid-cols-6 justify-items-center">
-              {ICONS.map(({ name, icon: IconComponent }) => {
-                const isSelected = selectedIconName === name;
-                return (
+              <div className="grid grid-cols-6 gap-3 justify-items-center">
+                {COLORS.map((color) => (
                   <button
-                    key={name}
+                    key={color}
                     type="button"
-                    onClick={() => setSelectedIconName(name)}
-                    className={`aspect-square h-10 flex items-center justify-center rounded-full border transition-transform duration-150 ${
-                      isSelected
+                    onClick={() => setSelectedColor(color)}
+                    className={`aspect-square w-8 rounded-full border-2 transition-transform duration-150 ${
+                      selectedColor === color
                         ? "border-white scale-110"
                         : "border-transparent"
                     }`}
-                    aria-label={`Select icon ${name}`}
-                  >
-                    <IconComponent size={18} color="white" />
-                  </button>
-                );
-              })}
+                    style={{ backgroundColor: color }}
+                    aria-label={`Select color ${color}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* ICONE */}
+            <div
+              className="bg-neutral-800 p-3 rounded-lg mb-1 mt-3"
+              style={{ backgroundColor: "rgb(50, 48, 46)" }}
+            >
+              <div className="icon-grid grid grid-cols-6 justify-items-center">
+                {ICONS.map(({ name, icon: IconComponent }) => {
+                  const isSelected = selectedIconName === name;
+                  return (
+                    <button
+                      key={name}
+                      type="button"
+                      onClick={() => setSelectedIconName(name)}
+                      className={`aspect-square h-10 flex items-center justify-center rounded-full border transition-transform duration-150 ${
+                        isSelected
+                          ? "border-white scale-110"
+                          : "border-transparent"
+                      }`}
+                      aria-label={`Select icon ${name}`}
+                    >
+                      <IconComponent size={18} color="white" />
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </Dialog.Content>
