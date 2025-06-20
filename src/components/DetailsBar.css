@@ -347,9 +347,29 @@
     margin: 0 0.2rem;
     transition: background 0.2s;
   }
+  .detail-close-btn {
+    background: #292929;
+  }
   .detail-close-btn:active,
   .detail-delete-btn:active {
     background: #667eea;
     color: #fff;
+  }
+  .date-picker-container,
+  .time-picker-container {
+    position: fixed;
+    left: 50%;
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: auto !important;
+    border-radius: 10px !important;
+    z-index: 4000;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    padding: 0.6rem;
+    transition: all 0.3s ease;
+  }
+  .date-picker-overlay {
+    z-index: 3999;
   }
 }
