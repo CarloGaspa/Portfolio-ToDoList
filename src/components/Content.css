@@ -3,7 +3,7 @@
   display: flex;
   flex-direction: column;
   padding: 0.5rem;
-  padding-top: 4rem;
+  padding-top: 1.2rem;
   padding-bottom: 2rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -297,12 +297,16 @@ a {
 }
 
 @media (max-width: 768px) {
-  html, body, #root {
+  html,
+  body,
+  #root {
     height: 100% !important;
     min-height: 0 !important;
     overflow-y: hidden !important;
   }
-  .main-area, .content-area, .content-container {
+  .main-area,
+  .content-area,
+  .content-container {
     height: 100% !important;
     min-height: 0 !important;
     overflow-y: visible !important;
@@ -313,6 +317,7 @@ a {
     flex-direction: column !important;
     height: 100% !important;
     min-height: 0 !important;
+    padding-top: 4rem;
   }
   .content-header {
     padding-top: 0.7rem;
@@ -369,7 +374,8 @@ a {
     margin-top: 0;
     justify-content: flex-start;
   }
-  .input-data .button-data, .input-data .button-important {
+  .input-data .button-data,
+  .input-data .button-important {
     min-width: 42px;
     min-height: 42px;
     font-size: 1.15rem;
@@ -380,7 +386,8 @@ a {
     border: 1.5px solid #444;
     transition: border 0.2s, background 0.2s, color 0.2s;
   }
-  .input-data .button-data:active, .input-data .button-important:active {
+  .input-data .button-data:active,
+  .input-data .button-important:active {
     background: #333;
     color: #fff;
     border-color: #667eea;
@@ -408,16 +415,16 @@ a {
     padding: 16px 18px;
     border-radius: 14px;
     border: none;
-    background: rgba(255,255,255,0.07);
+    background: rgba(255, 255, 255, 0.07);
     color: #f3f4f6;
-    box-shadow: 0 1px 8px rgba(0,0,0,0.10) inset;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1) inset;
     margin: 0;
     transition: box-shadow 0.2s, background 0.2s;
     outline: none;
   }
   .input-text input[type="text"]:focus {
-    background: rgba(102,126,234,0.10);
-    box-shadow: 0 2px 16px rgba(102,126,234,0.13) inset;
+    background: rgba(102, 126, 234, 0.1);
+    box-shadow: 0 2px 16px rgba(102, 126, 234, 0.13) inset;
   }
   .input-text input[type="text"]::placeholder {
     color: #bdbdbd;
