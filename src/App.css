@@ -112,10 +112,12 @@ body,
   display: grid;
   grid-template-columns: repeat(6, 1fr);
   gap: 0.5rem;
+  padding: 0.2rem 0.1rem;
 }
 @media (max-width: 600px) {
   .icon-grid {
     grid-template-columns: repeat(4, 1fr);
     gap: 0.4rem;
+    padding: 0.1rem 0;
   }
 }
