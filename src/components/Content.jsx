@@ -5,6 +5,24 @@ import { FiPlus, FiTrash2, FiCheck, FiCircle, FiStar } from "react-icons/fi";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+// =============================
+// Content Component
+// =============================
+/**
+ * Renders the main content area with the task list, input, and controls.
+ * @param {Object} props
+ * @param {boolean} props.isMobile - Whether the UI is in mobile mode
+ * @param {Object} props.activeContent - The currently selected list object
+ * @param {Array} props.tasks - The tasks to display
+ * @param {Function} props.onSelectTask - Handler for selecting a task
+ * @param {Function} props.onAddTask - Handler for adding a new task
+ * @param {Function} props.onRemoveTask - Handler for removing a task
+ * @param {Function} props.onToggleComplete - Handler for toggling task completion
+ * @param {Function} props.onToggleImportant - Handler for toggling task importance
+ * @param {string} props.currentList - The ID of the current list
+ * @param {string} props.activeTask - The ID of the currently selected task
+ * @param {boolean} props.detailsBarOpen - Whether the details bar is open
+ */
 export default function Content({
   isMobile,
   activeContent = {},
@@ -18,6 +36,7 @@ export default function Content({
   activeTask,
   detailsBarOpen,
 }) {
+  // ===== State for new task input and UI controls =====
   const [newTaskText, setNewTaskText] = useState("");
   const [newTaskDate, setNewTaskDate] = useState(null);
   const [newTaskTime, setNewTaskTime] = useState(null);
@@ -27,10 +46,10 @@ export default function Content({
   const [justCompleted, setJustCompleted] = useState([]);
   const justCompletedTimeouts = useRef({});
 
+  // ===== Handler: Add a new task =====
   const handleAddTask = () => {
     const trimmedText = newTaskText.trim();
     if (!trimmedText) return;
-
     const formattedDate = newTaskDate
       ? new Date(newTaskDate).toISOString().split("T")[0]
       : null;
@@ -41,7 +60,6 @@ export default function Content({
           hour12: false,
         })
       : null;
-
     let isImportant = newTaskImportant;
     let taskDate = formattedDate;
     if (activeContent.id === "important") isImportant = true;
@@ -49,7 +67,6 @@ export default function Content({
       const today = new Date();
       taskDate = today.toISOString().split("T")[0];
     }
-
     onAddTask({
       text: trimmedText,
       important: isImportant,
@@ -62,18 +79,20 @@ export default function Content({
     setNewTaskImportant(false);
   };
 
+  // ===== Handler: Select a task =====
   const handleSelect = (taskId) => {
     onSelectTask(taskId);
   };
 
+  // ===== Handler: Add task on Enter key =====
   const handleInputKeyDown = (e) => {
     if (e.key === "Enter") {
       handleAddTask();
     }
   };
 
+  // ===== Handler: Toggle task completion with animation =====
   const focusMobile = (isMobile && !detailsBarOpen) || !isMobile;
-
   const handleToggleComplete = (taskId, alreadyCompleted) => {
     if (!alreadyCompleted) {
       setJustCompleted((prev) => [...prev, taskId]);
@@ -85,17 +104,21 @@ export default function Content({
     onToggleComplete(taskId);
   };
 
+  // ===== Cleanup: Clear timeouts on unmount =====
   useEffect(() => {
     return () => {
       Object.values(justCompletedTimeouts.current).forEach(clearTimeout);
     };
   }, []);
 
+  // =============================
+  // Render Content Layout
+  // =============================
   return (
     <>
       {focusMobile && (
         <div className="content-container">
-          {/* TITOLO */}
+          {/* Header: List icon and name */}
           <div className="content-header">
             <span
               className="content-icon"
@@ -112,7 +135,6 @@ export default function Content({
                 activeContent.icon
               )}
             </span>
-
             <h1
               className="content-title"
               style={{ color: activeContent.color }}
@@ -120,11 +142,11 @@ export default function Content({
               {activeContent.name}
             </h1>
           </div>
+          {/* Empty state */}
           {tasks.length === 0 && (
             <p className="no-tasks">No tasks in this list</p>
           )}
-
-          {/* LISTA TASK */}
+          {/* Task List */}
           <ul className="task-list">
             {tasks.map((task) => (
               <li
@@ -136,7 +158,7 @@ export default function Content({
               ${justCompleted.includes(task.id) ? "just-completed" : ""}
             `}
               >
-                {/* CONTROL */}
+                {/* Complete/Uncomplete Button */}
                 <div className="task-controls">
                   <button
                     onClick={() =>
@@ -156,7 +178,7 @@ export default function Content({
                     )}
                   </button>
                 </div>
-                {/* CONTENT */}
+                {/* Task Text and Date */}
                 <div
                   className="task-text-container"
                   onClick={() => handleSelect(task.id)}
@@ -173,7 +195,7 @@ export default function Content({
                     {formatTaskDateTime(task.date, task.time)}
                   </span>
                 </div>
-                {/* OTHER */}
+                {/* Important Toggle */}
                 <button
                   onClick={() => onToggleImportant(task.id)}
                   className={
@@ -194,13 +216,12 @@ export default function Content({
               </li>
             ))}
           </ul>
-
-          {/* ---------------------------------------------------
-                              INPUT
-      --------------------------------------------------- */}
-
+          {/* =============================
+              Task Input Area
+              ============================= */}
           <div className="input-area">
             <div className="input-data">
+              {/* Quick date buttons */}
               <button
                 onClick={() => {
                   if (newTaskDate && isToday(newTaskDate)) {

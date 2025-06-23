@@ -1,4 +1,6 @@
-/* === Topbar === */
+/* =============================
+   TopBar Main Container
+   ============================= */
 .topbar {
   position: fixed;
   top: 0;
@@ -17,20 +19,32 @@
   border-bottom: 1px solid rgb(62, 62, 62);
 }
 
+/* =============================
+   TopBar Title
+   ============================= */
 .topbar-title {
   font-size: 1rem;
   font-weight: bold;
 }
 
+/* =============================
+   TopBar Navigation (Desktop)
+   ============================= */
 .topbar-nav {
   display: flex;
   gap: 1rem;
 }
 
+/* =============================
+   Hamburger Menu Button (Mobile)
+   ============================= */
 .menu-toggle {
   display: none;
 }
 
+/* =============================
+   Responsive Styles (Mobile)
+   ============================= */
 @media (max-width: 768px) {
   .topbar {
     display: flex;

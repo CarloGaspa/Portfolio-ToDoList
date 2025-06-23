@@ -1,3 +1,6 @@
+/* =============================
+   Root CSS Variables for Sidebar
+   ============================= */
 :root {
   --accent: #667eea;
   --sidebar-bg: rgb(37, 36, 35);
@@ -6,7 +9,9 @@
   --text-muted: #64748b;
 }
 
-/* === Sidebar Container === */
+/* =============================
+   Sidebar Main Container
+   ============================= */
 .sidebar {
   top: 3rem;
   left: 0;
@@ -28,29 +33,30 @@
   transition: transform var(--transition-time) var(--transition-easing),
     width var(--transition-time) var(--transition-easing);
   will-change: transform, width;
-  flex: none; /* Quando vuoi evitare che un elemento si schiacci in contenitori stretti */
+  flex: none; /* Prevents shrinking in flex containers */
 }
 
+/* Custom Scrollbar Styles */
 .sidebar::-webkit-scrollbar {
   width: 6px;
 }
-
 .sidebar::-webkit-scrollbar-thumb {
   background-color: var(--accent);
   border-radius: 3px;
 }
 
-/* === SIDE BAR SHORTED === */
+/* Collapsed Sidebar State */
 .sidebar.shorted {
   width: 65px;
 }
 
-/* === List Container === */
+/* =============================
+   List Container and Items
+   ============================= */
 .sidebar ul {
   list-style: none;
 }
 
-/* === List Items === */
 .sidebar li,
 .add-btn {
   height: 50px;
@@ -67,13 +73,12 @@
   transition: transform 0.3s ease, opacity 0.2s ease, padding 0.3s ease;
 }
 
-/* Item States */
+/* List Item States */
 .sidebar li:hover,
 .openClose-btn:hover {
   background-color: rgba(102, 126, 234, 0.1);
   color: var(--text-light);
 }
-
 .sidebar li:hover {
   transform: translateX(5px);
 }
@@ -101,7 +106,9 @@
   font-weight: 500;
 }
 
-/* === Decorative Elements === */
+/* =============================
+   Decorative Elements
+   ============================= */
 .sidebar li::before {
   content: "";
   position: absolute;
@@ -120,7 +127,9 @@
   transform: scaleY(1) translateY(-50%);
 }
 
-/* Icons */
+/* =============================
+   Icons in Sidebar
+   ============================= */
 .sidebar .icon {
   color: var(--accent);
   margin-right: 0.75rem;
@@ -137,7 +146,9 @@
   color: var(--accent);
 }
 
-/* === Buttons === */
+/* =============================
+   Add & Delete Buttons
+   ============================= */
 .add-btn {
   width: 100%;
   background-color: var(--sidebar-bg);
@@ -145,7 +156,6 @@
   border: none;
   text-align: left;
 }
-
 .add-btn:hover {
   background-color: rgba(102, 126, 234, 0.1);
   transform: translateX(5px);
@@ -168,7 +178,9 @@
   color: var(--text-light);
 }
 
-/* Rimuove l'outline da tutti gli elementi interattivi */
+/* =============================
+   Accessibility: Remove Outline
+   ============================= */
 button,
 input,
 textarea,
@@ -177,7 +189,6 @@ a {
   outline: none;
 }
 
-/* Versione più specifica per i tuoi elementi */
 .add-btn:focus,
 .openClose-btn:focus,
 .delete-btn:focus,
@@ -186,7 +197,6 @@ a {
   box-shadow: none;
 }
 
-/* Alternativa migliore per accessibilità */
 .add-btn:focus-visible,
 .delete-btn:focus-visible,
 .sidebar li:focus-visible {
@@ -194,7 +204,9 @@ a {
   box-shadow: 0 0 0 2px var(--accent);
 }
 
-/* Animazione per il testo quando appare */
+/* =============================
+   Animation for Sidebar Labels
+   ============================= */
 .sidebar.open .label {
   opacity: 0;
   transform: translateX(-10px);
@@ -206,6 +218,9 @@ a {
   transform: translateX(0);
 }
 
+/* =============================
+   Responsive Styles (Mobile)
+   ============================= */
 @media (max-width: 768px) {
   .sidebar {
     position: fixed;

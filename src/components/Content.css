@@ -1,3 +1,6 @@
+/* =============================
+   Content Main Container
+   ============================= */
 .content-container {
   height: 100%;
   display: flex;
@@ -10,6 +13,9 @@
   text-rendering: optimizeLegibility;
 }
 
+/* =============================
+   Header Section
+   ============================= */
 .content-header {
   display: flex;
   align-items: center;
@@ -41,6 +47,9 @@
   font-weight: bold;
 }
 
+/* =============================
+   Task List Styles
+   ============================= */
 .task-list {
   list-style: none;
   flex-grow: 1;
@@ -63,7 +72,7 @@
 }
 
 .task-list li.completed .toggle-complete {
-  color: #4caf50 !important; /* Verde per indicare completato */
+  color: #4caf50 !important; /* Green for completed */
   font-weight: bold;
 }
 
@@ -71,6 +80,7 @@
   animation: completedTaskFade 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Animation for just completed tasks */
 @keyframes completedTaskFade {
   0% {
     opacity: 1;
@@ -86,6 +96,9 @@
   }
 }
 
+/* =============================
+   Task Controls (Buttons)
+   ============================= */
 .task-controls {
   display: flex;
   gap: 4px;
@@ -131,6 +144,9 @@
   opacity: 0.8;
 }
 
+/* =============================
+   Empty State
+   ============================= */
 .no-tasks {
   color: #888;
   text-align: center;
@@ -141,6 +157,9 @@
   justify-content: center;
 }
 
+/* =============================
+   Task Input Styles
+   ============================= */
 .content-container input[type="text"]:focus {
   outline: none;
   border-color: rgb(150, 148, 145);
@@ -184,7 +203,9 @@
   background-color: rgba(102, 126, 234, 0.1);
 }
 
-/* Rimuove l'outline da tutti gli elementi interattivi */
+/* =============================
+   Accessibility: Remove Outline
+   ============================= */
 button,
 input,
 textarea,
@@ -193,7 +214,6 @@ a {
   outline: none;
 }
 
-/* Versione più specifica per i tuoi elementi */
 .toggle-complete:focus,
 .toggle-important:focus,
 .toggle-normal:focus,
@@ -202,7 +222,6 @@ a {
   box-shadow: none;
 }
 
-/* Alternativa migliore per accessibilità */
 .toggle-completen:focus-visible,
 .toggle-important:focus-visible,
 .toggle-normal:focus-visible,
@@ -211,6 +230,9 @@ a {
   box-shadow: 0 0 0 2px var(--accent);
 }
 
+/* =============================
+   Task Input Area (Bottom)
+   ============================= */
 .input-area {
   display: flex;
   flex-direction: column;
@@ -267,6 +289,9 @@ a {
   color: white;
 }
 
+/* =============================
+   Date & Time Picker Overlays
+   ============================= */
 .content-date-picker-overlay,
 .content-time-picker-overlay {
   position: fixed;
@@ -296,6 +321,9 @@ a {
   max-width: 119px;
 }
 
+/* =============================
+   React DatePicker Custom Styles
+   ============================= */
 .react-datepicker {
   font-family: Arial, sans-serif;
 }
@@ -321,6 +349,9 @@ a {
   background-color: #f0f0f0;
 }
 
+/* =============================
+   Responsive Styles (Mobile)
+   ============================= */
 @media (max-width: 768px) {
   html,
   body,

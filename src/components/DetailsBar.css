@@ -1,3 +1,6 @@
+/* =============================
+   Root CSS Variables for DetailsBar
+   ============================= */
 :root {
   /* Colors */
   --bg-primary: rgb(37, 36, 35);
@@ -11,7 +14,9 @@
   --danger-color: #ff6b6b;
 }
 
-/* MAIN CONTAINER */
+/* =============================
+   Main DetailsBar Container
+   ============================= */
 .detailsBar {
   width: 90vw;
   max-width: 600px;
@@ -32,13 +37,17 @@
   flex: 1;
 }
 
-/* MOBILE */
+/* =============================
+   Mobile Styles
+   ============================= */
 .mobile {
   padding: 0.1rem;
   max-width: 100%;
 }
 
-/* HEADER SECTION */
+/* =============================
+   Header Section
+   ============================= */
 .details-header {
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border-color);
@@ -60,7 +69,9 @@
   border: none;
 }
 
-/* DETAIL SECTIONS */
+/* =============================
+   Detail Sections (Date, Time, etc.)
+   ============================= */
 .details-section {
   padding: 0;
   display: flex;
@@ -110,12 +121,10 @@
   color: var(--accent-color);
 }
 
-/* Edit button */
+/* Edit and Remove Buttons */
 .edit-button {
   padding-left: 0;
 }
-
-/* Remove button */
 .details-remove {
   color: var(--text-secondary);
   cursor: pointer;
@@ -125,12 +134,11 @@
   justify-content: flex-end;
   transition: color 0.2s ease;
 }
-
 .details-remove:hover {
   color: var(--danger-color);
 }
 
-/* DateTime Container */
+/* Date/Time Container */
 .date-time-container {
   display: flex;
   align-items: center;
@@ -139,13 +147,14 @@
   height: 100%;
   padding: 0 0.75rem;
 }
-
 .date-time-container span {
   color: var(--text-primary);
   font-size: 1rem;
 }
 
-/* DATE PICKER STYLES */
+/* =============================
+   Date Picker Overlay & Container
+   ============================= */
 .date-picker-overlay {
   position: fixed;
   top: 0;
@@ -155,7 +164,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 1000;
 }
-
 .date-picker-container {
   position: fixed;
   top: 50%;
@@ -168,7 +176,9 @@
   padding: 1rem;
 }
 
-/* ICON STYLES */
+/* =============================
+   Icon Styles
+   ============================= */
 .details-icon {
   margin: 0 1rem;
   color: var(--text-secondary);
@@ -177,14 +187,15 @@
   text-align: center;
 }
 
-/* BOTTOM */
+/* =============================
+   Bottom Action Buttons
+   ============================= */
 .detail-bottom {
   display: flex;
   justify-content: space-between;
   padding: 0.5rem;
   width: 100%;
 }
-
 .detail-close-btn,
 .detail-delete-btn {
   color: var(--text-primary);
@@ -196,17 +207,17 @@
   border: none;
   transition: all 0.2s ease;
 }
-
 .detail-close-btn:hover,
 .detail-delete-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-
 .detail-delete-btn:hover {
   color: var(--danger-color);
 }
 
-/* NOTE */
+/* =============================
+   Note Area
+   ============================= */
 .details-note-input {
   width: calc(100% - 1.5rem);
   padding: 0.75rem;
@@ -224,72 +235,65 @@
   line-height: 1.5;
   transition: border-color 0.2s ease;
 }
-
 .details-note-input:focus {
   outline: none;
   border-color: var(--accent-color);
 }
 
-/* Custom react-datepicker styles */
+/* =============================
+   React DatePicker Custom Styles
+   ============================= */
 .react-datepicker {
   background-color: var(--bg-secondary);
   border: 1px solid var(--border-color);
   font-family: inherit;
   font-size: 1rem;
 }
-
 .react-datepicker__header {
   background-color: var(--bg-secondary);
   border-bottom: 1px solid var(--border-color);
 }
-
 .react-datepicker__current-month,
 .react-datepicker__day-name,
 .react-datepicker__day {
   color: var(--text-secondary);
 }
-
 .react-datepicker__day:hover {
   background-color: var(--border-color);
   color: var(--text-dark);
 }
-
 .react-datepicker__day--selected {
   background-color: var(--accent-color);
   color: var(--bg-primary);
 }
-
 .react-datepicker__day--today {
   font-weight: bold;
 }
-
 .react-datepicker__navigation-icon::before {
   border-color: var(--text-secondary);
 }
-
 .react-datepicker__time-container {
   width: 100%;
 }
-
 .react-datepicker-time__header {
   color: var(--text-secondary);
 }
-
 .react-datepicker__time-list-item {
   background-color: var(--bg-secondary);
   color: var(--text-secondary);
 }
-
 .react-datepicker__time-list-item:hover {
   background-color: var(--border-color);
   color: var(--text-dark);
 }
-
 .react-datepicker__time-list-item--selected {
   background-color: var(--accent-color);
   color: var(--bg-primary);
 }
 
+/* =============================
+   Responsive Styles (Mobile)
+   ============================= */
 @media (max-width: 768px) {
   .detailsBar {
     position: fixed;

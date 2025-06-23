@@ -1,3 +1,6 @@
+// =============================
+// DetailsBar Component
+// =============================
 import React, { useState, useEffect, useRef } from "react";
 import "../App.css";
 import "./DetailsBar.css";
@@ -16,6 +19,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { BiLeftArrow } from "react-icons/bi";
 
+/**
+ * Renders the details sidebar for a selected task, with editing, date/time, and note controls.
+ * @param {Object} props
+ * @param {boolean} props.isMobile - Whether the UI is in mobile mode
+ * @param {boolean} props.isOpen - Whether the details bar is open
+ * @param {Object} props.task - The selected task object
+ * @param {Function} props.onClose - Handler to close the details bar
+ * @param {Function} props.onRemoveTask - Handler to remove the task
+ * @param {Function} props.onToggleComplete - Handler to toggle task completion
+ * @param {Function} props.onToggleImportant - Handler to toggle task importance
+ * @param {Function} props.onUpdateTask - Handler to update task fields
+ */
 export default function DetailsBar({
   isMobile,
   isOpen,
@@ -26,6 +41,7 @@ export default function DetailsBar({
   onToggleImportant,
   onUpdateTask,
 }) {
+  // ===== State for editing fields and UI controls =====
   const [editingText, setEditingText] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -36,6 +52,7 @@ export default function DetailsBar({
   const [currentNote, setCurrentNote] = useState("");
   const inputRef = useRef(null);
 
+  // ===== Effect: Sync state with selected task =====
   useEffect(() => {
     if (task) {
       setEditingText(task.text);
@@ -43,40 +60,40 @@ export default function DetailsBar({
         setNewTaskDate(new Date(task.date));
       }
       if (task.time) {
-        // Converti "HH:mm" in un oggetto Date
+        // Convert "HH:mm" to Date object
         const [hours, minutes] = task.time.split(":");
         const timeDate = new Date();
         timeDate.setHours(parseInt(hours, 10), parseInt(minutes, 10), 0, 0);
         setNewTaskTime(timeDate);
       } else {
-        setNewTaskTime(null); // Resetta se non c'è un orario
+        setNewTaskTime(null); // Reset if no time
       }
     }
   }, [task]);
 
+  // ===== Effect: Focus input when editing =====
   useEffect(() => {
     if (isEditing && inputRef.current) {
       inputRef.current.focus();
     }
   }, [isEditing]);
 
+  // ===== Early return if not open or no task =====
   if (!isOpen || !task) return null;
 
+  // ===== Handlers for editing and updating fields =====
   const handleTextClick = () => {
     setIsEditing(true);
   };
-
   const handleTextChange = (e) => {
     setEditingText(e.target.value);
   };
-
   const handleTextBlur = () => {
     setIsEditing(false);
     if (editingText.trim() !== task.text) {
       onUpdateTask(task.id, { text: editingText.trim() });
     }
   };
-
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       handleTextBlur();
@@ -85,57 +102,52 @@ export default function DetailsBar({
       setIsEditing(false);
     }
   };
-
   const formatDate = (date) => {
     if (!date) return "";
     const d = new Date(date);
-    return d.toISOString().split("T")[0]; // Formato YYYY-MM-DD
+    return d.toISOString().split("T")[0]; // Format YYYY-MM-DD
   };
-
   const handleDateChange = (date) => {
     const formattedDate = formatDate(date);
     onUpdateTask(task.id, { date: formattedDate });
     setNewTaskDate(date);
     setShowDatePicker(false);
   };
-
   const handleTimeChange = (time) => {
     if (!time) {
-      // Se l'orario viene rimosso
+      // If time is removed
       onUpdateTask(task.id, { time: null });
       setNewTaskTime(null);
       setShowTimePicker(false);
       return;
     }
-
-    // Formatta l'orario in "HH:mm" (senza secondi)
+    // Format time as "HH:mm"
     const formattedTime = time.toLocaleTimeString([], {
       hour: "2-digit",
       minute: "2-digit",
       hour12: false,
     });
-
     onUpdateTask(task.id, { time: formattedTime });
-    setNewTaskTime(time); // Salva l'oggetto Date (non la stringa)
+    setNewTaskTime(time); // Save Date object
     setShowTimePicker(false);
   };
-
   const handleRemoveDate = () => {
     onUpdateTask(task.id, { date: null });
     setNewTaskDate(null);
   };
-
   const handleRemoveTime = () => {
     onUpdateTask(task.id, { time: null });
     setNewTaskTime(null);
   };
-
   const handleAddToMyDay = () => {
     const today = new Date();
     onUpdateTask(task.id, { date: formatDate(today) });
     setNewTaskDate(today);
   };
 
+  // =============================
+  // Render DetailsBar Layout
+  // =============================
   return (
     <aside
       className={`detailsBar ${isOpen ? "open" : ""} 
@@ -143,7 +155,7 @@ export default function DetailsBar({
     >
       <div className="details-content">
         <div className="details-header">
-          {/* Checkbox */}
+          {/* Complete/Uncomplete Button */}
           <button
             type="button"
             onClick={() => {
@@ -158,7 +170,7 @@ export default function DetailsBar({
             {task.completed ? <FiCheck size={20} /> : <FiCircle size={20} />}
           </button>
 
-          {/* Task Text */}
+          {/* Task Text (editable) */}
           {isEditing ? (
             <input
               type="text"
@@ -196,7 +208,7 @@ export default function DetailsBar({
           </button>
         </div>
 
-        {/* DATE */}
+        {/* Due Date Section */}
         <div className="details-section">
           <FiCalendar size={20} className="details-icon" />
           {!task.date ? (
@@ -248,7 +260,7 @@ export default function DetailsBar({
           </>
         )}
 
-        {/* TIME */}
+        {/* Due Time Section */}
         <div className="details-section">
           <FiClock size={20} className="details-icon" />
           {!task.time ? (
@@ -305,7 +317,7 @@ export default function DetailsBar({
           </>
         )}
 
-        {/* ADD TO MY DAY */}
+        {/* Add to My Day Section (optional) */}
         <div className="details-section">
           <FiSun size={20} className="details-icon" />
           {task.date && isToday(new Date(task.date)) ? (

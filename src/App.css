@@ -1,27 +1,35 @@
+/* =============================
+   Root CSS Variables
+   ============================= */
 :root {
-  --sidebar-width: 17rem;
-  --sidebar-collapsed-width: 65px;
-  --transition-time: 0.4s;
-  --transition-easing: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --sidebar-width: 17rem; /* Default sidebar width */
+  --sidebar-collapsed-width: 65px; /* Collapsed sidebar width */
+  --transition-time: 0.4s; /* Transition duration for UI elements */
+  --transition-easing: cubic-bezier(0.25, 0.8, 0.25, 1); /* Easing for transitions */
 }
 
-/* Struttura Principale */
+/* =============================
+   Main Layout Structure
+   ============================= */
 .main-area {
   display: flex;
-  margin-top: 3rem; /* Deve corrispondere all'altezza della topbar */
-  height: calc(100vh - 3rem); /* Altezza viewport meno topbar */
+  margin-top: 3rem; /* Must match topbar height */
+  height: calc(100vh - 3rem); /* Full viewport minus topbar */
   position: relative;
   width: 100%;
 }
 
-/* Area del Contenuto */
+/* =============================
+   Content Area
+   ============================= */
 .content-area {
   width: 100%;
   height: 100%;
   overflow-y: auto;
-  transition: none; /* Causanoridimensionamenti */
+  transition: none; /* Prevents unwanted resizing */
 }
 
+/* Sidebar collapsed state affects content area */
 .sidebar.shorted ~ .content-area {
   width: calc(100% - var(--sidebar-collapsed-width));
   filter: blur(0.5px);
@@ -36,7 +44,9 @@
   width: 100%;
 }
 
-/* Per il contenuto interno */
+/* =============================
+   Inner Content Container
+   ============================= */
 .content-container {
   padding: 0.5rem;
   padding-top: 2rem;
@@ -44,12 +54,16 @@
   transition: padding 0.3s ease;
 }
 
+/* Mobile-specific content area (hidden by default) */
 .content-area-mobile {
   width: 0% !important;
   transition: margin-right var(--transition-time) var(--transition-easing),
     filter var(--transition-time) ease;
 }
 
+/* =============================
+   Responsive Styles (Mobile)
+   ============================= */
 @media (max-width: 768px) {
   html,
   body,
@@ -83,6 +97,7 @@
     padding: 0 !important;
     overflow-x: hidden !important;
   }
+  /* Sidebar overlay for mobile */
   .sidebar {
     position: fixed;
     left: 0;
@@ -100,7 +115,9 @@
   }
 }
 
-/* Regola globale per evitare overflow orizzontale */
+/* =============================
+   Global Rule: Prevent Horizontal Overflow
+   ============================= */
 html,
 body,
 #root {
@@ -108,6 +125,9 @@ body,
   box-sizing: border-box;
 }
 
+/* =============================
+   Icon Grid (for icon pickers, etc.)
+   ============================= */
 .icon-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
