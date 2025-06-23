@@ -44,7 +44,7 @@ A modern, responsive To-Do List application with a sleek interface for optimal t
 1. Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/Portfolio-ToDoList.git
+git clone https://github.com/CarloGaspa/Portfolio-ToDoList.git
 cd Portfolio-ToDoList
 ```
 
